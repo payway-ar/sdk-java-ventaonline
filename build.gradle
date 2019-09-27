@@ -1,0 +1,61 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: "maven-publish"
+apply plugin: 'eclipse'
+apply plugin: "maven"
+
+version = '2.7'
+group = 'com.decidir.api'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Java SDK for Decidir', 'Implementation-Version': version
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+}
+
+//create a single Jar with all dependencies
+task releaseJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Java SDK for Decidir', 'Implementation-Version': version
+    }
+    archiveName 'decidir-v'+ version +'-java7.jar'
+    destinationDir project.file('dist')		
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+repositories {
+    mavenCentral()
+
+    // Spock snapshots are available from the Sonatype OSS snapshot repository
+    maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+
+  testCompile "org.codehaus.groovy:groovy-all:2.4.6"
+  testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+
+  compile "com.squareup.retrofit2:retrofit:2.3.0"
+  compile "com.squareup.retrofit2:converter-jackson:2.3.0"
+}
+
+publishing {
+    publications {
+        mavenJar(MavenPublication) {
+           artifact releaseJar
+           artifactId 'decidir2-sdk-java7'
+           version project.version
+        }
+    }
+}
