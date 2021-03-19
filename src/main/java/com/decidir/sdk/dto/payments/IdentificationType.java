@@ -26,13 +26,13 @@ public enum IdentificationType {
 	public String toString() {
 		return this.value;
 	}
-	@JsonCreator
+	/*@JsonCreator
 	public static IdentificationType fromId(int id) {
 		for (IdentificationType element : IdentificationType.values()) {
 			if(element.id == id) return element; 
 		}
 		return IdentificationType.NO_DOC;
-	}
+	}*/
 
 	@JsonCreator
 	public static IdentificationType fromId(String id) {
