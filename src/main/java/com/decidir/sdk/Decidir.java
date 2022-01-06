@@ -17,6 +17,7 @@ import com.decidir.sdk.dto.payments.pci.PaymentPciRequest;
 import com.decidir.sdk.dto.payments.pci.PaymentPciTokenRequest;
 import com.decidir.sdk.dto.refunds.*;
 import com.decidir.sdk.dto.tokens.CardTokens;
+import com.decidir.sdk.dto.tokens.PaymentToken;
 import com.decidir.sdk.exceptions.responses.AnnulRefundException;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
@@ -26,6 +27,8 @@ import com.decidir.sdk.dto.payments.gds.GDSPaymentResponse;
 import com.decidir.sdk.payments.Payment;
 import com.decidir.sdk.resources.CardTokenApi;
 import com.decidir.sdk.resources.PaymentApi;
+import com.decidir.sdk.resources.PaymentTokenApi;
+import com.decidir.sdk.resources.PaymentTokenResponse;
 import com.decidir.sdk.resources.RefundApi;
 import com.decidir.sdk.services.*;
 
@@ -38,6 +41,7 @@ public final class Decidir {
 	private RefundsService refundsService;
 	private CardTokenService cardTokenService;
 	private PaymentConfirmService paymentConfirmService;
+	private PaymentTokenService paymentTokenService;
 
 	/**
 	 * Creates a new instance to communicate with Decidir Api.  
@@ -108,6 +112,8 @@ public final class Decidir {
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, CardTokenApi.class));
 		this.paymentConfirmService = PaymentConfirmService.getInstance(
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class));
+		this.paymentTokenService = PaymentTokenService.getInstance(
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentTokenApi.class)); 
 	}
 	
 	/**
@@ -752,6 +758,12 @@ public final class Decidir {
 	public DecidirResponse<OfflinePaymentResponse> offlinePCIPayment(OfflinePaymentRequestPCI offlinePCIPayment)
 			throws PaymentException, DecidirException {
 		return paymentsService.offlinePCIPayment(offlinePCIPayment);
+	}
+	
+	
+	
+	public DecidirResponse<PaymentTokenResponse> token (PaymentToken tokenReq){
+		return paymentTokenService.token(tokenReq);
 	}
 
 }
