@@ -18,6 +18,7 @@ import com.decidir.sdk.dto.payments.pci.PaymentPciTokenRequest;
 import com.decidir.sdk.dto.refunds.*;
 import com.decidir.sdk.dto.tokens.CardTokens;
 import com.decidir.sdk.dto.tokens.PaymentToken;
+import com.decidir.sdk.dto.tokens.PaymentTokenCS;
 import com.decidir.sdk.exceptions.responses.AnnulRefundException;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
@@ -762,8 +763,12 @@ public final class Decidir {
 	
 	
 	
-	public DecidirResponse<PaymentTokenResponse> token (PaymentToken tokenReq){
+	public DecidirResponse<PaymentTokenResponse> token (PaymentToken tokenReq) throws DecidirException{
 		return paymentTokenService.token(tokenReq);
+	}
+	
+	public DecidirResponse<PaymentTokenResponse> tokenCS (PaymentTokenCS tokenCsReq) throws DecidirException {
+		return paymentTokenService.tokenCS(tokenCsReq);
 	}
 
 }

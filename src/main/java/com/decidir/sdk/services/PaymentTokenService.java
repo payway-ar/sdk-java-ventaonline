@@ -8,6 +8,7 @@ import com.decidir.sdk.converters.PaymentConverter;
 import com.decidir.sdk.converters.PaymentTokenConverter;
 import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.tokens.PaymentToken;
+import com.decidir.sdk.dto.tokens.PaymentTokenCS;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.resources.PaymentApi;
 import com.decidir.sdk.resources.PaymentTokenApi;
@@ -34,6 +35,15 @@ public class PaymentTokenService {
 	}
     
     public DecidirResponse<PaymentTokenResponse> token(PaymentToken token){
+    	try {
+			Response<PaymentTokenResponse> response = this.paymentTokenApi.token(token).execute();
+			return paymentTokenConverter.convert(response, response.body());
+    	} catch (IOException ioe) {
+    		throw new DecidirException(HTTP_500, ioe.getMessage());
+		}
+    }
+    
+    public DecidirResponse<PaymentTokenResponse> tokenCS(PaymentTokenCS token){
     	try {
 			Response<PaymentTokenResponse> response = this.paymentTokenApi.token(token).execute();
 			return paymentTokenConverter.convert(response, response.body());
