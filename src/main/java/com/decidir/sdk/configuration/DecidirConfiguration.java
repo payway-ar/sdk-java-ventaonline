@@ -2,11 +2,12 @@ package com.decidir.sdk.configuration;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 
 import com.decidir.sdk.converters.DecidirConverter;
+import com.google.gson.JsonObject;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,7 +26,7 @@ public class DecidirConfiguration {
     public static final String APIKEY = "apikey";
     public static final String GROUPER = "grouper";
     public static final String DEVELOPER = "developer";
-    public static final String SDK_JAVA = "SDK_JAVA";
+    public static final String SDK_JAVA = "SDK-JAVA";
     public static final String SERVICE = "service";
 
 
@@ -66,13 +67,11 @@ public class DecidirConfiguration {
     }
     
     static private String getXsource(String grouper, String developer) {
-    	HashMap<String, String> map = new HashMap<>();
-    	map.put(SERVICE, SDK_JAVA);
-    	map.put(GROUPER, grouper);
-    	map.put(DEVELOPER, developer);
-    	String keyString = map.toString();
-    	String xSourceKey = Base64.getEncoder().encodeToString(keyString.getBytes());
-    	
+    	JsonObject source = new JsonObject();
+    	source.addProperty(SERVICE, SDK_JAVA);
+    	source.addProperty(GROUPER, grouper);
+    	source.addProperty(DEVELOPER, developer);
+    	String xSourceKey = Base64.getEncoder().encodeToString(source.toString().getBytes());
     	return xSourceKey;
     }
 
