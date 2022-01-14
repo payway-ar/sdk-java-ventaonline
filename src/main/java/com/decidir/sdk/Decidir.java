@@ -98,7 +98,7 @@ public final class Decidir {
 	 * </li>
 	 * </ul>
 	 */
-	public Decidir(final String secretAccessToken, final String apiUrl, final Integer timeOut) {
+	public Decidir(final String secretAccessToken, final String apiUrl, final Integer timeOut, final String grouper, final String developer) {
 		if (apiUrl != null) {
 			this.apiUrl = apiUrl;
 		}
@@ -106,15 +106,15 @@ public final class Decidir {
 			this.timeOut = timeOut;
 		}
 		this.paymentsService = PaymentsService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class));
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class, grouper, developer));
 		this.refundsService = RefundsService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, RefundApi.class));
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, RefundApi.class, grouper, developer));
 		this.cardTokenService = CardTokenService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, CardTokenApi.class));
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, CardTokenApi.class, grouper, developer));
 		this.paymentConfirmService = PaymentConfirmService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class));
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class, grouper, developer));
 		this.paymentTokenService = PaymentTokenService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentTokenApi.class)); 
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentTokenApi.class, grouper, developer)); 
 	}
 	
 	/**
@@ -136,7 +136,7 @@ public final class Decidir {
 	 * </ul>
 	 */
 	public Decidir(final String secretAccessToken) {
-		this(secretAccessToken, null, null);
+		this(secretAccessToken, null, null, "", "");
 	}
 
 	/**
@@ -171,7 +171,7 @@ public final class Decidir {
 	 * </ul>
 	 */
 	public Decidir(final String secretAccessToken, final Integer timeOut) {
-		this(secretAccessToken, null, timeOut);
+		this(secretAccessToken, null, timeOut, "", "");
 	}
 
 	/**

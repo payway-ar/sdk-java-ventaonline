@@ -34,7 +34,7 @@ public class Form {
             this.timeOut = timeOut;
         }
         this.formService = FormService.getInstance(
-                DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, FormApi.class));
+                DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, FormApi.class, "", ""));
     }
 
     public Form(final String secretAccessToken) {
