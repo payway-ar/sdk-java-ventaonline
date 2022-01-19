@@ -17,8 +17,9 @@ import com.decidir.sdk.dto.payments.pci.PaymentPciRequest;
 import com.decidir.sdk.dto.payments.pci.PaymentPciTokenRequest;
 import com.decidir.sdk.dto.refunds.*;
 import com.decidir.sdk.dto.tokens.CardTokens;
-import com.decidir.sdk.dto.tokens.PaymentToken;
-import com.decidir.sdk.dto.tokens.PaymentTokenCS;
+import com.decidir.sdk.dto.tokens.Token;
+import com.decidir.sdk.dto.tokens.TokenCs;
+import com.decidir.sdk.dto.tokens.TokenResponse;
 import com.decidir.sdk.exceptions.responses.AnnulRefundException;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
@@ -28,7 +29,7 @@ import com.decidir.sdk.dto.payments.gds.GDSPaymentResponse;
 import com.decidir.sdk.payments.Payment;
 import com.decidir.sdk.resources.CardTokenApi;
 import com.decidir.sdk.resources.PaymentApi;
-import com.decidir.sdk.resources.PaymentTokenApi;
+import com.decidir.sdk.resources.TokenApi;
 import com.decidir.sdk.resources.PaymentTokenResponse;
 import com.decidir.sdk.resources.RefundApi;
 import com.decidir.sdk.services.*;
@@ -42,7 +43,7 @@ public final class Decidir {
 	private RefundsService refundsService;
 	private CardTokenService cardTokenService;
 	private PaymentConfirmService paymentConfirmService;
-	private PaymentTokenService paymentTokenService;
+	private TokenService tokenService;
 
 	/**
 	 * Creates a new instance to communicate with Decidir Api.  
@@ -113,8 +114,8 @@ public final class Decidir {
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, CardTokenApi.class, grouper, developer));
 		this.paymentConfirmService = PaymentConfirmService.getInstance(
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class, grouper, developer));
-		this.paymentTokenService = PaymentTokenService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentTokenApi.class, grouper, developer)); 
+		this.tokenService = TokenService.getInstance(
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, TokenApi.class, grouper, developer)); 
 	}
 	
 	/**
@@ -763,12 +764,12 @@ public final class Decidir {
 	
 	
 	
-	public DecidirResponse<PaymentTokenResponse> token (PaymentToken tokenReq) throws DecidirException{
-		return paymentTokenService.token(tokenReq);
+	public DecidirResponse<TokenResponse> token (Token tokenReq) throws DecidirException{
+		return tokenService.token(tokenReq);
 	}
 	
-	public DecidirResponse<PaymentTokenResponse> tokenCS (PaymentTokenCS tokenCsReq) throws DecidirException {
-		return paymentTokenService.tokenCS(tokenCsReq);
+	public DecidirResponse<TokenResponse> tokenCS (TokenCs tokenCsReq) throws DecidirException {
+		return tokenService.tokenCS(tokenCsReq);
 	}
 
 }

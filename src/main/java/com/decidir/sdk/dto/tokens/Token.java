@@ -4,16 +4,18 @@ import java.io.Serializable;
 
 import com.decidir.sdk.dto.payments.Identification;
 
-public abstract class PaymentToken implements Serializable {
+public class Token implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String card_number;
 	private String card_expiration_month;
 	private String card_expiration_year;
 	private String security_code;
 	private String card_holder_name;
 	private Identification card_holder_identification;
-	private String device_unique_identifier;
-	
 	
 	public String getCard_number() {
 		return card_number;
@@ -55,13 +57,6 @@ public abstract class PaymentToken implements Serializable {
 	}
 	public void setCard_holder_identification(Identification card_holder_identification) {
 		this.card_holder_identification = card_holder_identification;
-	}
-	
-	public String getDevice_unique_identifier() {
-		return device_unique_identifier;
-	}
-	public void setDevice_unique_identifier(String device_unique_identifier) {
-		this.device_unique_identifier = device_unique_identifier;
 	}
 
 }
