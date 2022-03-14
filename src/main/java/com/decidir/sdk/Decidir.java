@@ -3,6 +3,8 @@ package com.decidir.sdk;
 import com.decidir.sdk.configuration.DecidirConfiguration;
 import com.decidir.sdk.dto.*;
 import com.decidir.sdk.dto.annullment.AnnulRefundResponse;
+import com.decidir.sdk.dto.batchClosure.BatchClosure;
+import com.decidir.sdk.dto.batchClosure.BatchClosureResponse;
 import com.decidir.sdk.dto.payments.*;
 import com.decidir.sdk.dto.payments.agro.AgroPaymentRequestNoPCI;
 import com.decidir.sdk.dto.payments.agro.AgroPaymentResponse;
@@ -24,6 +26,7 @@ import com.decidir.sdk.exceptions.responses.RefundException;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestPCI;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentResponse;
 import com.decidir.sdk.payments.Payment;
+import com.decidir.sdk.resources.BatchClosureApi;
 import com.decidir.sdk.resources.CardTokenApi;
 import com.decidir.sdk.resources.PaymentApi;
 import com.decidir.sdk.resources.RefundApi;
@@ -38,6 +41,7 @@ public final class Decidir {
 	private RefundsService refundsService;
 	private CardTokenService cardTokenService;
 	private PaymentConfirmService paymentConfirmService;
+	private BatchClosureService batchClosureService;
 
 	/**
 	 * Creates a new instance to communicate with Decidir Api.  
@@ -108,6 +112,8 @@ public final class Decidir {
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, CardTokenApi.class, grouper, developer));
 		this.paymentConfirmService = PaymentConfirmService.getInstance(
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class, grouper, developer));
+		this.batchClosureService = BatchClosureService.getInstance(
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, BatchClosureApi.class, grouper, developer));
 	}
 	
 	/**
@@ -752,6 +758,12 @@ public final class Decidir {
 	public DecidirResponse<OfflinePaymentResponse> offlinePCIPayment(OfflinePaymentRequestPCI offlinePCIPayment)
 			throws PaymentException, DecidirException {
 		return paymentsService.offlinePCIPayment(offlinePCIPayment);
+	}
+	
+	
+	
+	public DecidirResponse<BatchClosureResponse> batchClosure (BatchClosure batchClosureReq) throws DecidirException{
+		return batchClosureService.batchClosure(batchClosureReq);
 	}
 
 }
