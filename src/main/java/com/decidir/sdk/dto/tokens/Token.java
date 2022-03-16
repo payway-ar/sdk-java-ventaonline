@@ -16,6 +16,8 @@ public class Token implements Serializable {
 	private String security_code;
 	private String card_holder_name;
 	private Identification card_holder_identification;
+	private int card_holder_door_number;
+	private String card_holder_birthday;
 	
 	public String getCard_number() {
 		return card_number;
@@ -58,5 +60,20 @@ public class Token implements Serializable {
 	public void setCard_holder_identification(Identification card_holder_identification) {
 		this.card_holder_identification = card_holder_identification;
 	}
+	public int getCard_holder_door_number() {
+		return card_holder_door_number;
+	}
+	public void setCard_holder_door_number(int card_holder_door_number) {
+		this.card_holder_door_number = card_holder_door_number;
+	}
+	public String getCard_holder_birthday() {
+		return card_holder_birthday;
+	}
+	public void setCard_holder_birthday(String card_holder_birthday) {
+		this.card_holder_birthday = card_holder_birthday;
+	}
+
+	
+	
 
 }

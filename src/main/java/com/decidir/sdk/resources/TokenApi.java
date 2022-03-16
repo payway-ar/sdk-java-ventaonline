@@ -9,9 +9,11 @@ import retrofit2.http.*;
 
 public interface TokenApi {
 	
-	@POST("token")
+	@POST("tokens")
 	Call <TokenResponse> token (@Body Token tokenReq);
 	
-	@POST("token")
+	
+	
+	@POST("tokensCs")
 	Call <TokenResponse> tokenCS(@Body TokenCs toquenCsReq);
 }
