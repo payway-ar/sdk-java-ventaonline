@@ -9,6 +9,6 @@ import retrofit2.http.POST;
 
 public interface BatchClosureApi {
 	
-	@POST("batchclosure")
+	@POST("closures/batchclosure")
 	Call<BatchClosureResponse> batchClosure(@Body BatchClosure batchClosureReq);
 }

@@ -1,10 +1,16 @@
 package com.decidir.sdk.dto.batchClosure;
 
-public class BatchClosure {
+import java.io.Serializable;
+
+public class BatchClosure implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String siteID;
-	private String paymentMethod;
+	private Integer paymentMethod;
 	
 	
 	public String getUsername() {
@@ -19,10 +25,10 @@ public class BatchClosure {
 	public void setSiteID(String siteID) {
 		this.siteID = siteID;
 	}
-	public String getPaymentMethod() {
+	public Integer getPaymentMethod() {
 		return paymentMethod;
 	}
-	public void setPaymentMethod(String paymentMethod) {
+	public void setPaymentMethod(Integer paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 	
