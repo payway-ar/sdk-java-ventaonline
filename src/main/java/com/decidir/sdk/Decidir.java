@@ -569,6 +569,11 @@ public final class Decidir {
 			throws RefundException, DecidirException {
 		return refundsService.refundPayment(paymentId, refundPayment, user);
 	}
+	
+	public DecidirResponse<RefundPaymentResponse> refundSubPayment(Long paymentId, RefundSubPaymentRequest refundSubPayment, String user)
+			throws RefundException, DecidirException {
+		return refundsService.refundSubPayment(paymentId, refundSubPayment, user);
+	}
 
 	/**
 	 * Method from MPOS

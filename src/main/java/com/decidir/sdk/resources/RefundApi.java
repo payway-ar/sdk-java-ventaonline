@@ -15,6 +15,9 @@ public interface RefundApi {
 
     @POST("payments/{paymentId}/refunds")
     Call<RefundPaymentResponse> refundPayment(@Header("User") String user,@Path("paymentId") Long paymentId, @Body RefundPayment refundPayment);
+    
+    @POST("payments/{paymentId}/refunds")
+    Call<RefundPaymentResponse> refundSubPayment(@Header("User") String user,@Path("paymentId") Long paymentId, @Body RefundSubPaymentRequest refundSubPayment);
 
     @POST("payments/{paymentId}/refunds")
     Call<RefundPaymentResponse> refundMPOSPayment(@Header("User") String user, @Path("paymentId") Long paymentId, @Body RefundMPOSPayment refundPayment);
