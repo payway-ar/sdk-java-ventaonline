@@ -51,6 +51,17 @@ public class RefundsService {
             throw new DecidirException(HTTP_500, ioe.getMessage());
         }
     }
+    
+    public DecidirResponse<RefundPaymentResponse> refundSubPayment(Long paymentId, RefundSubPaymentRequest refundPayment, String user) {
+        try {
+            Response<RefundPaymentResponse> response = this.refundApi.refundSubPayment(user, paymentId, refundPayment).execute();
+
+            return this.paymentConverter.convertOrThrowSpecError(response, RefundException.class, RefundPaymentResponse.class);
+        } catch(IOException ioe) {
+            throw new DecidirException(HTTP_500, ioe.getMessage());
+        }
+    }
+    
 
     public DecidirResponse<RefundPaymentResponse> refundMPOSPayment(Long paymentId, RefundMPOSPayment refundPayment, String user) {
         try {
