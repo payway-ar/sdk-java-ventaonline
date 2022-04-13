@@ -19,6 +19,9 @@ import com.decidir.sdk.dto.payments.pci.PaymentPciRequest;
 import com.decidir.sdk.dto.payments.pci.PaymentPciTokenRequest;
 import com.decidir.sdk.dto.refunds.*;
 import com.decidir.sdk.dto.tokens.CardTokens;
+import com.decidir.sdk.dto.tokens.Token;
+import com.decidir.sdk.dto.tokens.TokenCs;
+import com.decidir.sdk.dto.tokens.TokenResponse;
 import com.decidir.sdk.exceptions.responses.AnnulRefundException;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
@@ -29,6 +32,8 @@ import com.decidir.sdk.payments.Payment;
 import com.decidir.sdk.resources.BatchClosureApi;
 import com.decidir.sdk.resources.CardTokenApi;
 import com.decidir.sdk.resources.PaymentApi;
+import com.decidir.sdk.resources.TokenApi;
+import com.decidir.sdk.resources.PaymentTokenResponse;
 import com.decidir.sdk.resources.RefundApi;
 import com.decidir.sdk.services.*;
 
@@ -42,6 +47,7 @@ public final class Decidir {
 	private CardTokenService cardTokenService;
 	private PaymentConfirmService paymentConfirmService;
 	private BatchClosureService batchClosureService;
+	private TokenService tokenService;
 
 	/**
 	 * Creates a new instance to communicate with Decidir Api.  
@@ -114,6 +120,8 @@ public final class Decidir {
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class, grouper, developer));
 		this.batchClosureService = BatchClosureService.getInstance(
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, BatchClosureApi.class, grouper, developer));
+		this.tokenService = TokenService.getInstance(
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, TokenApi.class, grouper, developer)); 
 	}
 	
 	/**
@@ -567,6 +575,11 @@ public final class Decidir {
 			throws RefundException, DecidirException {
 		return refundsService.refundPayment(paymentId, refundPayment, user);
 	}
+	
+	public DecidirResponse<RefundPaymentResponse> refundSubPayment(Long paymentId, RefundSubPaymentRequest refundSubPayment, String user)
+			throws RefundException, DecidirException {
+		return refundsService.refundSubPayment(paymentId, refundSubPayment, user);
+	}
 
 	/**
 	 * Method from MPOS
@@ -760,10 +773,15 @@ public final class Decidir {
 		return paymentsService.offlinePCIPayment(offlinePCIPayment);
 	}
 	
-	
-	
 	public DecidirResponse<BatchClosureResponse> batchClosure (BatchClosure batchClosureReq) throws DecidirException{
 		return batchClosureService.batchClosure(batchClosureReq);
+
+	public DecidirResponse<TokenResponse> token (Token tokenReq) throws DecidirException{
+		return tokenService.token(tokenReq);
+	}
+	
+	public DecidirResponse<TokenResponse> tokenCS (TokenCs tokenCsReq) throws DecidirException {
+		return tokenService.tokenCS(tokenCsReq);
 	}
 
 }
