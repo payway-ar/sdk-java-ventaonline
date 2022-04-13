@@ -775,6 +775,7 @@ public final class Decidir {
 	
 	public DecidirResponse<BatchClosureResponse> batchClosure (BatchClosure batchClosureReq) throws DecidirException{
 		return batchClosureService.batchClosure(batchClosureReq);
+	}
 
 	public DecidirResponse<TokenResponse> token (Token tokenReq) throws DecidirException{
 		return tokenService.token(tokenReq);
