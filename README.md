@@ -1,8 +1,8 @@
 <a name="inicio"></a>
-Decidir SDK Java
+Payway SDK Java
 ===============
 
-Modulo para conexión con gateway de pago DECIDIR2
+Modulo para conexión con gateway de pago Payway
 + [Introducción](#introduccion)
   + [Soporte de Integración](#Soporte)
   + [Alcance](#scope)
@@ -75,41 +75,37 @@ Modulo para conexión con gateway de pago DECIDIR2
 El flujo de una transacción a través de las **sdks** consta de dos pasos, la **generaci&oacute;n de un token de pago** por parte del cliente y el **procesamiento de pago** por parte del comercio. Existen sdks espec&iacute;ficas para realizar estas funciones en distintos lenguajes que se detallan a continuaci&oacute;n:
 
 + **Generaci&oacute;n de un token de pago.**  Se utiliza alguna de las siguentes **sdks front-end** :
-  + [sdk IOS](https://github.com/decidir/sdk-ios-v2)
-  + [sdk Android](https://github.com/decidir/sdk-android-v2)
-  + [sdk Javascript](https://github.com/decidir/sdk-javascript-v2)
+  + [sdk Javascript](https://github.compayway-ar/sdk-javascript-ventaonline)
 + **Procesamiento de pago.**  Se utiliza alguna de las siguentes **sdks back-end** :
-  + [sdk Java](https://github.com/decidir/sdk-java-v2)
-  + [sdk PHP](https://github.com/decidir/sdk-php-v2)
-  + [sdk .Net](https://github.com/decidir/sdk-.net-v2)
-  + [sdk Node](https://github.com/decidir/sdk-node-v2)
+  + [sdk Java](https://github.com/payway-ar/sdk-java-ventaonline)
+  + [sdk PHP](https://github.com/payway-ar/sdk-php-ventaonline)
+  + [sdk .Net](https://github.com/payway-ar/sdk-net-ventaonline)
+  + [sdk Node](https://github.com/payway-ar/sdk-node-ventaonline)
 
 
 [<sub>Volver a inicio</sub>](#inicio)
 
 <a name="scope"></a>
 ## Alcance
-La **sdk Java** provee soporte para su **aplicaci&oacute;n back-end**, encargandose de la comunicaci&oacute;n del comercio con la **API Decidir** utilizando su **API Key privada**<sup>1</sup> y el **token de pago** generado por el cliente.
+La **sdk Java** provee soporte para su **aplicaci&oacute;n back-end**, encargandose de la comunicaci&oacute;n del comercio con la **API Payway** utilizando su **API Key privada**<sup>1</sup> y el **token de pago** generado por el cliente.
 
-Para generar el token de pago, la aplicaci&oacute;n cliente realizar&aacute; con **Decidir** a trav&eacute;s de alguna de las siguentes **sdks front-end**:
-+ [sdk IOS](https://github.com/decidir/sdk-ios-v2)
-+ [sdk Android](https://github.com/decidir/sdk-android-v2)
-+ [sdk Javascript](https://github.com/decidir/sdk-javascript-v2)
+Para generar el token de pago, la aplicaci&oacute;n cliente realizar&aacute; con **Payway** a trav&eacute;s de alguna de las siguentes **sdks front-end**:
++ [sdk Javascript](https://github.compayway-ar/sdk-javascript-ventaonline)
 
 ![imagen de sdks](./docs/img/DiagramaSDKs.png)</br>
 
 ---
-<sup>_1 - Las API Keys serán provistas por el equipo de Soporte de DECIDIR (soporte@decidir.com.ar). _</sup>
+<sup>_1 - Las API Keys serán provistas por el equipo de Soporte de Payway ventas online(soporte@payway.com.ar). _</sup>
 <a name="Soporte"></a>
 ## Soporte de Integración
-**DECIDIR** ofrece un servicio de Soporte 24x7 con el siguiente alcance:
+**Payway** ofrece un servicio de Soporte 24x7 con el siguiente alcance:
 •	Lunes a Viernes de 9 a 18 horas: Soporte Técnico, Atención Comercial y Soporte Transaccional.
-•	Fuera de Horario Laboral: Soporte Transaccional.
+•	Fuera de Horario Laboral: Control de Red.
 **CANALES DE ATENCIÓN**
 •	Teléfono: +54 11 4379 3460
-•	Formulario de Contacto: click aquí
-•	Help Desk: soporte@decidir.com.ar
-•	Control de Red: controldered@decidir.com.ar (en caso de disrupción transaccional)
+•	Implementaciones: integraciones-ventasonline@payway.com.ar
+•	Control de Red:  controldered@payway.com.ar (en caso de disrupción transaccional)
+
 
 [<sub>Volver a inicio</sub>](#inicio)
 
@@ -141,18 +137,7 @@ Se puede realizar la integración a través de un manager de dependencias, o bie
 +  __version:__ _2.7.1_
 
 #### Descarga manual
-[Versi&oacute;n 2.7.1](https://github.com/decidir/sdk-java-v2/blob/master/dist/decidir-v2.7.1-java7.jar)
-
-### Java 6
-#### Manager de dependencias
-+  __repositoryUrl:__ _http://repo.dev.redbee.io/content/repositories/decidir-sdk/_
-+  __groupId:__ _com.decidir.api_
-+  __artifactId:__ _decidir2-sdk-java6_
-+  __version:__ _2.1.4_
-
-#### Descarga manual
-[Versi&oacute;n 2.1.4](https://github.com/decidir/sdk-java-v2/blob/master/dist/decidir-v2.1.4-java6.jar)
-
+[Versi&oacute;n 2.7.1](https://github.com/payway-ar/sdk-java-ventaonline/blob/master/dist/payway-v2.7.5-java7.jar)
 
 <a name="versionesdejavasoportadas"></a>
 ### Versiones de Java soportadas
@@ -164,7 +149,7 @@ La versi&oacute;n implementada de la SDK, est&aacute; testeada para versiones a 
 
 ## Ambientes
 
-La **sdk Java** permite trabajar con los ambientes Sandbox y Producc&oacute;n de Decidir.
+La **sdk Java** permite trabajar con los ambientes Sandbox y Producc&oacute;n de Payway.
 El ambiente se debe instanciar indicando su URL.
 
 ```java
@@ -194,7 +179,7 @@ Instanciación de la clase `Decidir`
 
 La misma recibe como parámetros la API Key privada provista por Decidir para el comercio y el ambiente en que se trabajara.
 
-La API Key será provista por el equipo de Soporte de DECIDIR (soporte@decidir.com.ar).
+La API Key será provista por el equipo de Soporte de Payway ventas online(soporte@payway.com.ar).
 
 A partir de ahora y por el resto de la documentaci&oacute;n, se ejemplificar&aacute; utilizando una APIKey habilitada para operar en el ambiente Sandbox.
 
@@ -240,7 +225,7 @@ int timeout = 10; // 10 segundos de timeout
 Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
 Customer customer = new Customer();
 customer.setId("test"); // user_id
-customer.setEmail("test@decidir.com"); // user_email
+customer.setEmail("test@payway.com"); // user_email
 
 PaymentRequest paymentRequest = new PaymentRequest();
 paymentRequest.setToken("ae9fc3e5-ff41-4de2-9c91-81030be1c4a6"); // token de pago
@@ -290,7 +275,7 @@ Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
-customer.setEmail("test@decidir.com"); // user_email
+customer.setEmail("test@payway.com"); // user_email
 
 PaymentPciRequest paymentPciRequest = new PaymentPciRequest();
 CardData cardData = new CardData();
@@ -331,7 +316,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -360,7 +345,7 @@ Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
-customer.setEmail("test@decidir.com"); // user_email
+customer.setEmail("test@payway.com"); // user_email
 
 GDSPaymentRequestNoPCI gdsPaymentRequest = new GDSPaymentRequestNoPCI();
 //RetailFraudDetectionData retail =  new RetailFraudDetectionData();
@@ -389,7 +374,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -415,7 +400,7 @@ Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
-customer.setEmail("test@decidir.com"); // user_email
+customer.setEmail("test@payway.com"); // user_email
 
 GDSPaymentRequestPCI gdsPaymentRequest = new GDSPaymentRequestPCI();
 CardData cardData = new CardData();
@@ -457,7 +442,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -485,7 +470,7 @@ Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
-customer.setEmail("test@decidir.com"); // user_email
+customer.setEmail("test@payway.com"); // user_email
 
 BSAPaymentRequestPCI bsaPaymentRequestPCI = new BSAPaymentRequestPCI();
 
@@ -543,7 +528,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -577,7 +562,7 @@ Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
-customer.setEmail("test@decidir.com"); // user_email
+customer.setEmail("test@payway.com"); // user_email
 
 AgroPaymentRequestNoPCI agroPaymentRequestNoPCI = new AgroPaymentRequestNoPCI();
 //RetailFraudDetectionData retail =  new RetailFraudDetectionData();
@@ -621,7 +606,7 @@ try {
     // Manejo de pago rechazado
     // ...codigo...
 } catch (DecidirException de) {
-    // Manejo de excepcion  de Decidir
+    // Manejo de excepcion  de payway
     // ...codigo...
 } catch (Exception e) {
     //Manejo de excepcion general
@@ -657,7 +642,7 @@ int timeout = 10; // 10 segundos de timeout
 Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
 Customer customer = new Customer();
 customer.setId("test"); // user_id
-customer.setEmail("test@decidir.com"); // user_email
+customer.setEmail("test@payway.com"); // user_email
 
 Integer installments = 2;
 Long amount1 = 10000L;
@@ -695,7 +680,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -728,7 +713,7 @@ int timeout = 10; // 10 segundos de timeout
 Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
 Customer customer = new Customer();
 customer.setId("test"); // user_id
-customer.setEmail("test@decidir.com"); // user_email
+customer.setEmail("test@payway.com"); // user_email
 
 PaymentRequest paymentRequest = new PaymentRequest();
 paymentRequest.setToken("a6f05789-10df-4464-a318-887a1520204b"); // token de pago
@@ -759,7 +744,7 @@ try {
    // Manejo de pago rechazado
    // ...codigo...
 } catch (DecidirException de) {
-   // Manejo de excepcion  de Decidir
+   // Manejo de excepcion  de payway
    // ...codigo...
 } catch (Exception e) {
    //Manejo de excepcion general
@@ -795,7 +780,7 @@ try {
 	// Procesamiento de respuesta de listado de pagos
 	// ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -826,7 +811,7 @@ try {
 	// Procesamiento de respuesta de consulta de pago
 	// ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -873,7 +858,7 @@ try {
     // Manejo de excepcion en devolucion
     re.printStackTrace();
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	// ...codigo...
 } catch (Exception e) {
 	//Manejo de excepcion general
@@ -913,7 +898,7 @@ try {
     String status = vse.getErrorDetail().getValidation_errors().getStatus();
     vse.printStackTrace();	
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -955,7 +940,7 @@ try {
     String status = vse.getErrorDetail().getValidation_errors().getStatus();
     vse.printStackTrace();	
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -994,7 +979,7 @@ try {
     String status = vse.getErrorDetail().getValidation_errors().getStatus();
     vse.printStackTrace();	
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -1008,7 +993,7 @@ try {
 
 ## Tokenización de tarjetas de crédito
 
-Esta funcionalidad permite que luego de realizar una compra con una tarjeta, se genere un token alfanumerico unico en el backend de Decidir, esto permite que a la hora de comprar nuevamente con esta tarjeta solo requerira el codigo de seguridad.
+Esta funcionalidad permite que luego de realizar una compra con una tarjeta, se genere un token alfanumerico unico en el backend de Payway, esto permite que a la hora de comprar nuevamente con esta tarjeta solo requerira el codigo de seguridad.
 Como primer paso se debe realizar una un pago normal, el token generado estara en el campo "token" de la respuesta.
 
 [<sub>Volver a inicio</sub>](#inicio)
@@ -1040,7 +1025,7 @@ try {
 	// Procesamiento de respuesta de listado de tarjetas tokenizadas
 	// ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -1069,7 +1054,7 @@ int timeout = 10; // 10 segundos de timeout
 Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
 Customer customer = new Customer();
 customer.setId("test"); // user_id
-customer.setEmail("test@decidir.com"); // user_email
+customer.setEmail("test@payway.com"); // user_email
 
 PaymentRequest paymentRequest = new PaymentRequest();
 paymentRequest.setToken("ae9fc3e5-ff41-4de2-9c91-81030be1c4a6"); // token de pago
@@ -1092,7 +1077,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -1121,7 +1106,7 @@ try {
 	// Procesamiento de respuesta de eliminacion de tarjeta tokenizada
 	// ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -1273,7 +1258,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -1338,7 +1323,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -1433,7 +1418,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -1497,7 +1482,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -1586,7 +1571,7 @@ try {
 	 // Manejo de pago rechazado
 	 // ...codigo...
 } catch (DecidirException de) {
-	// Manejo de excepcion  de Decidir
+	// Manejo de excepcion  de Payway
 	 // ...codigo...
 } catch (Exception e) {
 	 //Manejo de excepcion general
@@ -1601,7 +1586,7 @@ try {
 
 ## Uso de Responses
 
-Luego de haber realizado una operación, DECIDIR devuelve los siguientes objetos:
+Luego de haber realizado una operación, Payway devuelve los siguientes objetos:
 
 ### PaymentResponse
 
@@ -1643,7 +1628,7 @@ Es usado en:
 
 ## Manejo de Excepciones
 
-Todas las respuestas negativas del backend de DECIDIR deberán ser manejadas mediante Excepciones.
+Todas las respuestas negativas del backend de Payway deberán ser manejadas mediante Excepciones.
 
 Las Excepciones tienen dos naturalezas:
 
@@ -1678,7 +1663,7 @@ Ejemplo de cómo capturar el <code>PaymentException</code>:
 ```java
 try {
     // ...codigo...
-	// Pago enviado a DECIDIR
+	// Pago enviado a Payway
 	// ...codigo...
 } catch (PaymentException pe) {
     // Estado general de la Excepción
@@ -1692,7 +1677,7 @@ try {
 <a name="decidirException"></a>
 ### DecidirException
 
-El <code>DecidirException</code> será lanzado cuando DECIDIR no pueda procesar una solicitud.
+El <code>DecidirException</code> será lanzado cuando Payway no pueda procesar una solicitud.
 
 #### Atributos
     - status: int
@@ -1703,7 +1688,7 @@ Además es <code>superclass</code> de las siguientes excepciones:
 <a name="validateException"></a>
 #### ValidateException
 
-Es lanzado cuando DECIDIR intenta procesar datos con formatos no esperados.
+Es lanzado cuando Payway intenta procesar datos con formatos no esperados.
 
 #### Atributos
     - status: int
@@ -1715,14 +1700,14 @@ Ejemplo de cómo capturar el <code>ValidateException</code>:
 ```java
 try {
     // ...codigo...
-    // Pago enviado a DECIDIR
+    // Pago enviado a Payway
     // ...codigo...
 } catch (ValidateException ve) {
     // Estado general de la Excepción
     int httpStatus = ve.getStatus();
     String exceptionMessage = ve.getMessage();
 
-    // Detalle de error en DECIDIR
+    // Detalle de error en Payway
     ValidateError errorDetail = ve.getErrorDetail();
 }
 ```
@@ -1730,7 +1715,7 @@ try {
 <a name="validateStatusException"></a>
 #### ValidateStatusException
 
-Es lanzado cuando DECIDIR intenta realizar operaciones con estados no esperados.
+Es lanzado cuando Payway intenta realizar operaciones con estados no esperados.
 
 #### Atributos
     - status: int
@@ -1742,14 +1727,14 @@ Ejemplo de cómo capturar el <code>ValidateStatusException</code>:
 ```java
 try {
     // ...codigo...
-    // Pago enviado a DECIDIR
+    // Pago enviado a Payway
     // ...codigo...
 } catch (ValidateStatusException ve) {
     // Estado general de la Excepción
     int httpStatus = ve.getStatus();
     String exceptionMessage = ve.getMessage();
 
-    // Detalle de error en DECIDIR
+    // Detalle de error en Payway
     ValidateStatusError errorDetail = ve.getErrorDetail().getValidation_errors().getStatus();
 }
 ```
@@ -1758,9 +1743,9 @@ try {
 #### ApiException
 
 Es lanzado por los siguientes motivos:
-* Inconvenientes de acceso a los endpoints del API DECIDIR
+* Inconvenientes de acceso a los endpoints del API Payway
 * ApiKey incorrecta
-* Llamadas demasiado frecuentes al API DECIDIR
+* Llamadas demasiado frecuentes al API Payway
 
 #### Atributos
     - status: int
@@ -1772,14 +1757,14 @@ Ejemplo de cómo capturar el <code>ApiException</code>:
 ```java
 try {
     // ...codigo...
-    // Pago enviado a DECIDIR
+    // Pago enviado a Payway
     // ...codigo...
 } catch (ApiException ae) {
     // Estado general de la Excepción
     int httpStatus = ae.getStatus();
     String exceptionMessage = ae.getMessage();
 
-    // Detalle de error en DECIDIR
+    // Detalle de error en Payway
     ApiError errorDetail = ae.getErrorDetail();
 }
 ```
@@ -1787,7 +1772,7 @@ try {
 <a name="notFoundException"></a>
 #### NotFoundException
 
-Es lanzado cuando DECIDIR intenta procesar datos incompletos o no existentes en DECIDIR.
+Es lanzado cuando Payway intenta procesar datos incompletos o no existentes en Payway.
 
 #### Atributos
     - status: int
@@ -1799,13 +1784,13 @@ Ejemplo de cómo capturar el <code>NotFoundException</code>:
 ```java
 try {
     // ...codigo...
-    // Pago enviado a DECIDIR
+    // Pago enviado a Payway
     // ...codigo...
 } catch (NotFoundException nfe) {
     int httpStatus = nfe.getStatus();
     String exceptionMessage = nfe.getMessage();
 
-    // Detalle de error en DECIDIR
+    // Detalle de error en Payway
     NotFoundError errorDetail = nfe.getErrorDetail();
 }
 ```
@@ -1813,7 +1798,7 @@ try {
 <a name="refundException"></a>
 ### RefundException
 
-Es lanzado cuando DECIDIR rechaza:
+Es lanzado cuando Payway rechaza:
 
 * Devoluciones totales
 * Devoluciones parciales
@@ -1830,14 +1815,14 @@ Ejemplo de cómo capturar el <code>RefundException</code>:
 ```java
 try {
     // ...codigo...
-    // Devolución enviada a DECIDIR
+    // Devolución enviada a Payway
     // ...codigo...
 } catch (RefundException re) {
     // Estado general de la Excepción
     int httpStatus = re.getStatus();
     String exceptionMessage = re.getMessage();
     
-    // Respuesta de DECIDIR
+    // Respuesta de Payway
     RefundPaymentResponse refundPayment = re.getRefundPayment();
 }
 ```
@@ -1845,7 +1830,7 @@ try {
 <a name="annulRefundException"></a>
 ### AnnulRefundException
 
-Es lanzado cuando DECIDIR rechaza:
+Es lanzado cuando Payway rechaza:
 
 * Anulaciones de devoluciones totales
 * Anulaciones de devoluciones parciales
@@ -1861,14 +1846,14 @@ Ejemplo de cómo capturar el <code>AnnulRefundException</code>:
 ```java
 try {
     // ...codigo...
-    // Anulación de devolución enviada a DECIDIR
+    // Anulación de devolución enviada a Payway
     // ...codigo...
 } catch (AnnulRefundException are) {
     // Estado general de la Excepción
     int httpStatus = are.getStatus();
     String exceptionMessage = are.getMessage();
 
-    // Respuesta de DECIDIR
+    // Respuesta de Payway
     AnnulRefundResponse annulRefund = are.getAnnulRefund();
 }
 ```
@@ -1898,7 +1883,7 @@ https://decidirv2.api-docs.io/1.0/tablas-de-referencia-e-informacion-para-el-imp
 | AR$ | Pesos Argentinos | ARS
 | U$S | Dólares Americanos | USD
 
-**NOTA** Si bien la API RESTful de DECIDIR admite compras en Dólares Americanos, la legislación argentina sólo permite transacciones en Pesos Argentinos. Es por esto que DECIDIR recomienda que todas las transacciones se cursen en dicha moneda.
+**NOTA** Si bien la API RESTful de Payway admite compras en Dólares Americanos, la legislación argentina sólo permite transacciones en Pesos Argentinos. Es por esto que Payway recomienda que todas las transacciones se cursen en dicha moneda.
 
 [<sub>Volver a inicio</sub>](#inicio)
 

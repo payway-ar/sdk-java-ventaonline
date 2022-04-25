@@ -12,7 +12,7 @@ targetCompatibility = 1.7
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Java SDK for Decidir', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'Java SDK for Payway', 'Implementation-Version': version
     }
 }
 
@@ -25,9 +25,9 @@ allprojects {
 //create a single Jar with all dependencies
 task releaseJar(type: Jar) {
     manifest {
-        attributes 'Implementation-Title': 'Java SDK for Decidir', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'Java SDK for Payway', 'Implementation-Version': version
     }
-    archiveName 'decidir-v'+ version +'-java7.jar'
+    archiveName 'payway-v'+ version +'-java7.jar'
     destinationDir project.file('dist')		
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
@@ -52,7 +52,7 @@ publishing {
     publications {
         mavenJar(MavenPublication) {
            artifact releaseJar
-           artifactId 'decidir2-sdk-java7'
+           artifactId 'payway-sdk-java7'
            version project.version
         }
     }
