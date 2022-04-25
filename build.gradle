@@ -1,11 +1,10 @@
 apply plugin: 'idea'
 apply plugin: 'java'
-apply plugin: 'groovy'
 apply plugin: "maven-publish"
 apply plugin: 'eclipse'
 apply plugin: "maven"
 
-version = '2.7'
+version = '2.7.3'
 group = 'com.decidir.api'
 
 sourceCompatibility = 1.7
@@ -13,7 +12,7 @@ targetCompatibility = 1.7
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Java SDK for Decidir', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'Java SDK for Payway', 'Implementation-Version': version
     }
 }
 
@@ -26,9 +25,9 @@ allprojects {
 //create a single Jar with all dependencies
 task releaseJar(type: Jar) {
     manifest {
-        attributes 'Implementation-Title': 'Java SDK for Decidir', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'Java SDK for Payway', 'Implementation-Version': version
     }
-    archiveName 'decidir-v'+ version +'-java7.jar'
+    archiveName 'payway-v'+ version +'-java7.jar'
     destinationDir project.file('dist')		
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
@@ -42,19 +41,18 @@ repositories {
 }
 
 dependencies {
-
-  testCompile "org.codehaus.groovy:groovy-all:2.4.6"
-  testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
-
   compile "com.squareup.retrofit2:retrofit:2.3.0"
   compile "com.squareup.retrofit2:converter-jackson:2.3.0"
+  
+  compile 'com.google.code.gson:gson:2.8.9'
+
 }
 
 publishing {
     publications {
         mavenJar(MavenPublication) {
            artifact releaseJar
-           artifactId 'decidir2-sdk-java7'
+           artifactId 'payway-sdk-java7'
            version project.version
         }
     }

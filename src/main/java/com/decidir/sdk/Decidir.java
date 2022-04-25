@@ -17,6 +17,9 @@ import com.decidir.sdk.dto.payments.pci.PaymentPciRequest;
 import com.decidir.sdk.dto.payments.pci.PaymentPciTokenRequest;
 import com.decidir.sdk.dto.refunds.*;
 import com.decidir.sdk.dto.tokens.CardTokens;
+import com.decidir.sdk.dto.tokens.Token;
+import com.decidir.sdk.dto.tokens.TokenCs;
+import com.decidir.sdk.dto.tokens.TokenResponse;
 import com.decidir.sdk.exceptions.responses.AnnulRefundException;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
@@ -26,6 +29,8 @@ import com.decidir.sdk.dto.payments.gds.GDSPaymentResponse;
 import com.decidir.sdk.payments.Payment;
 import com.decidir.sdk.resources.CardTokenApi;
 import com.decidir.sdk.resources.PaymentApi;
+import com.decidir.sdk.resources.TokenApi;
+import com.decidir.sdk.resources.PaymentTokenResponse;
 import com.decidir.sdk.resources.RefundApi;
 import com.decidir.sdk.services.*;
 
@@ -38,6 +43,7 @@ public final class Decidir {
 	private RefundsService refundsService;
 	private CardTokenService cardTokenService;
 	private PaymentConfirmService paymentConfirmService;
+	private TokenService tokenService;
 
 	/**
 	 * Creates a new instance to communicate with Decidir Api.  
@@ -93,7 +99,7 @@ public final class Decidir {
 	 * </li>
 	 * </ul>
 	 */
-	public Decidir(final String secretAccessToken, final String apiUrl, final Integer timeOut) {
+	public Decidir(final String secretAccessToken, final String apiUrl, final Integer timeOut, final String grouper, final String developer) {
 		if (apiUrl != null) {
 			this.apiUrl = apiUrl;
 		}
@@ -101,13 +107,15 @@ public final class Decidir {
 			this.timeOut = timeOut;
 		}
 		this.paymentsService = PaymentsService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class));
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class, grouper, developer));
 		this.refundsService = RefundsService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, RefundApi.class));
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, RefundApi.class, grouper, developer));
 		this.cardTokenService = CardTokenService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, CardTokenApi.class));
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, CardTokenApi.class, grouper, developer));
 		this.paymentConfirmService = PaymentConfirmService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class));
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class, grouper, developer));
+		this.tokenService = TokenService.getInstance(
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, TokenApi.class, grouper, developer)); 
 	}
 	
 	/**
@@ -129,7 +137,7 @@ public final class Decidir {
 	 * </ul>
 	 */
 	public Decidir(final String secretAccessToken) {
-		this(secretAccessToken, null, null);
+		this(secretAccessToken, null, null, "", "");
 	}
 
 	/**
@@ -164,7 +172,7 @@ public final class Decidir {
 	 * </ul>
 	 */
 	public Decidir(final String secretAccessToken, final Integer timeOut) {
-		this(secretAccessToken, null, timeOut);
+		this(secretAccessToken, null, timeOut, "", "");
 	}
 
 	/**
@@ -561,6 +569,11 @@ public final class Decidir {
 			throws RefundException, DecidirException {
 		return refundsService.refundPayment(paymentId, refundPayment, user);
 	}
+	
+	public DecidirResponse<RefundPaymentResponse> refundSubPayment(Long paymentId, RefundSubPaymentRequest refundSubPayment, String user)
+			throws RefundException, DecidirException {
+		return refundsService.refundSubPayment(paymentId, refundSubPayment, user);
+	}
 
 	/**
 	 * Method from MPOS
@@ -752,6 +765,16 @@ public final class Decidir {
 	public DecidirResponse<OfflinePaymentResponse> offlinePCIPayment(OfflinePaymentRequestPCI offlinePCIPayment)
 			throws PaymentException, DecidirException {
 		return paymentsService.offlinePCIPayment(offlinePCIPayment);
+	}
+	
+	
+	
+	public DecidirResponse<TokenResponse> token (Token tokenReq) throws DecidirException{
+		return tokenService.token(tokenReq);
+	}
+	
+	public DecidirResponse<TokenResponse> tokenCS (TokenCs tokenCsReq) throws DecidirException {
+		return tokenService.tokenCS(tokenCsReq);
 	}
 
 }
