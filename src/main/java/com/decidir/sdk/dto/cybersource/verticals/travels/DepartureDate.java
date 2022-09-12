@@ -3,8 +3,10 @@ package com.decidir.sdk.dto.cybersource.verticals.travels;
 import java.io.Serializable;
 import java.util.Date;
 
-public class DepartureDate implements Serializable {
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+public class DepartureDate implements Serializable {
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm'Z'")
 	private Date departure_time;
 	private String departure_zone;
 	
