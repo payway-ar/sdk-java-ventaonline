@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.decidir.sdk.dto.Status;
 import com.decidir.sdk.dto.StatusDetails;
+import com.decidir.sdk.dto.auth3ds.Auth3dsResponse;
 import com.decidir.sdk.dto.payments.card.CardData;
 import com.decidir.sdk.payments.Payment;
 
@@ -23,6 +24,7 @@ public class PaymentResponse extends Payment implements Serializable {
 	private String pan;
 	private String customer_token;
 	private CardData card_data;
+	private Auth3dsResponse auth_3ds_response;
 
 	public String getToken() {
 		return token;
@@ -110,6 +112,14 @@ public class PaymentResponse extends Payment implements Serializable {
 
 	public void setCard_data(CardData card_data) {
 		this.card_data = card_data;
+	}
+
+	public Auth3dsResponse getAuth_3ds_response() {
+		return auth_3ds_response;
+	}
+
+	public void setAuth_3ds_response(Auth3dsResponse auth_3ds_response) {
+		this.auth_3ds_response = auth_3ds_response;
 	}
 
 }
