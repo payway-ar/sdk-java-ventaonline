@@ -1,5 +1,6 @@
 package com.decidir.sdk.payments;
 
+import com.decidir.sdk.dto.auth3ds.Auth3dsData;
 import com.decidir.sdk.dto.cybersource.FraudDetectionData;
 import com.decidir.sdk.dto.payments.*;
 
@@ -28,6 +29,8 @@ public abstract class Payment implements Serializable {
 	private Aggregator aggregate_data;
 	private String establishment_name;
 	protected String payment_mode;
+	private boolean cardholder_auth_required;
+	private Auth3dsData auth_3ds_data;
 
 	public Long getId() {
 		return id;
@@ -162,5 +165,21 @@ public abstract class Payment implements Serializable {
 
 	protected void setPayment_mode(String payment_mode) {
 		this.payment_mode = payment_mode;
+	}
+
+	public boolean isCardholder_auth_required() {
+		return cardholder_auth_required;
+	}
+
+	public void setCardholder_auth_required(boolean cardholder_auth_required) {
+		this.cardholder_auth_required = cardholder_auth_required;
+	}
+
+	public Auth3dsData getAuth_3ds_data() {
+		return auth_3ds_data;
+	}
+
+	public void setAuth_3ds_data(Auth3dsData auth_3ds_data) {
+		this.auth_3ds_data = auth_3ds_data;
 	}
 }
