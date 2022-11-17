@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.decidir.sdk.converters.ErrorConverter;
 import com.decidir.sdk.converters.PaymentConverter;
 import com.decidir.sdk.dto.DecidirResponse;
+import com.decidir.sdk.dto.instruction3ds.Instruction3dsData;
 import com.decidir.sdk.dto.payments.Page;
 import com.decidir.sdk.dto.payments.PaymentRequest;
 import com.decidir.sdk.dto.payments.PaymentResponse;
@@ -20,8 +21,10 @@ import com.decidir.sdk.dto.payments.offline.OfflinePaymentRequestPCI;
 import com.decidir.sdk.dto.payments.offline.OfflinePaymentResponse;
 import com.decidir.sdk.dto.payments.pci.PaymentPciRequest;
 import com.decidir.sdk.dto.payments.pci.PaymentPciTokenRequest;
+import com.decidir.sdk.dto.payments.threeds.PaymentAuth3dsResponse;
 import com.decidir.sdk.exceptions.DecidirError;
 import com.decidir.sdk.exceptions.DecidirException;
+import com.decidir.sdk.exceptions.responses.Instruction3dsException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
 import com.decidir.sdk.resources.PaymentApi;
 
@@ -150,6 +153,25 @@ public class PaymentsService {
 					.execute();
 			return paymentConverter.convertOrThrowSpecError(response, PaymentException.class, PaymentResponse.class);
 		} catch (IOException  ioe) {
+			throw new DecidirException(HTTP_500, ioe.getMessage());
+		}
+	}
+	
+	public DecidirResponse<PaymentAuth3dsResponse> sendInstructionThreeDS(String xConsumerUsername, Instruction3dsData instruction3dsData) {
+		try {
+			Response<PaymentAuth3dsResponse> response = this.paymentApi.sendInstructionThreeDS(xConsumerUsername, instruction3dsData).execute();
+			return paymentConverter.convertOrThrowSpecError(response, PaymentException.class, PaymentResponse.class);
+		} catch (IOException ioe) {
+			throw new DecidirException(HTTP_500, ioe.getMessage()); 
+		}	
+	}
+	
+	public DecidirResponse<PaymentAuth3dsResponse> paymentThreeds(PaymentRequest payment) {
+		try {
+			Response<PaymentAuth3dsResponse> response = this.paymentApi.payThreeds(payment).execute();
+			//mapper
+			return paymentConverter.convertOrThrowSpecError(response, PaymentException.class, PaymentAuth3dsResponse.class);
+		} catch (IOException ioe) {
 			throw new DecidirException(HTTP_500, ioe.getMessage());
 		}
 	}

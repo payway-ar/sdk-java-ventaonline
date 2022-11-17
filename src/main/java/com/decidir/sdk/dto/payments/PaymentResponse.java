@@ -7,10 +7,13 @@ import com.decidir.sdk.dto.StatusDetails;
 import com.decidir.sdk.dto.auth3ds.Auth3dsResponse;
 import com.decidir.sdk.dto.payments.card.CardData;
 import com.decidir.sdk.payments.Payment;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * DTO Payment response used to communicate with Decidir's Payment Service 
  */
+@JsonInclude(Include.NON_NULL)
 public class PaymentResponse extends Payment implements Serializable {
 
 	private String token;

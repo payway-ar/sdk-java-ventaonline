@@ -3,6 +3,8 @@ package com.decidir.sdk.payments;
 import com.decidir.sdk.dto.auth3ds.Auth3dsData;
 import com.decidir.sdk.dto.cybersource.FraudDetectionData;
 import com.decidir.sdk.dto.payments.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,12 +12,15 @@ import java.util.List;
 /**
  * Payment DTO used to communicate with Decidir's Payment Service
  */
+@JsonInclude(Include.NON_NULL)
 public abstract class Payment implements Serializable {
 
 	private Long id = 0L;
 	private Customer customer;
 	private Currency currency;
 	private Long amount;
+	
+	@JsonInclude(Include.NON_DEFAULT)
 	private int installments;
 	private String first_installment_expiration_date;
 	private String site_transaction_id;
@@ -29,6 +34,8 @@ public abstract class Payment implements Serializable {
 	private Aggregator aggregate_data;
 	private String establishment_name;
 	protected String payment_mode;
+	
+	@JsonInclude(Include.NON_DEFAULT)
 	private boolean cardholder_auth_required;
 	private Auth3dsData auth_3ds_data;
 
