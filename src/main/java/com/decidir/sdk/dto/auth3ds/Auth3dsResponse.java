@@ -1,7 +1,13 @@
 package com.decidir.sdk.dto.auth3ds;
 
-public class Auth3dsResponse {
+import java.io.Serializable;
+
+public class Auth3dsResponse implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String status;
 	private String authentication_value;

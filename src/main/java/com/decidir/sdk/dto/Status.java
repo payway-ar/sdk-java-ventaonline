@@ -28,6 +28,8 @@ public enum Status {
     REVERSED,
     ADHERED,
     CANCELLED, // status for cancelled refunds
+    CHALLENGE_PENDING,
+    FINGERPRINT_PENDING,
     UNDEFINED;
 
     private static Map<String, Status> statusMap = new HashMap(13);
@@ -49,6 +51,8 @@ public enum Status {
         statusMap.put("reversed", REVERSED);
         statusMap.put("adhered", ADHERED);
         statusMap.put("cancelled", CANCELLED);
+        statusMap.put("challenge pending", CHALLENGE_PENDING);
+        statusMap.put("fingerprint pending", FINGERPRINT_PENDING);
         statusMap.put("undefined", UNDEFINED);
     }
 
