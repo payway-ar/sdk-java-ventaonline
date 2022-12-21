@@ -18,6 +18,8 @@ public class Token implements Serializable {
 	private Identification card_holder_identification;
 	private int card_holder_door_number;
 	private String card_holder_birthday;
+	private FraudDetectionModel fraud_detection;
+	private String ip_address;
 	
 	public String getCard_number() {
 		return card_number;
@@ -71,6 +73,18 @@ public class Token implements Serializable {
 	}
 	public void setCard_holder_birthday(String card_holder_birthday) {
 		this.card_holder_birthday = card_holder_birthday;
+	}
+	public FraudDetectionModel getFraud_detection() {
+		return fraud_detection;
+	}
+	public void setFraud_detection(FraudDetectionModel fraud_detection) {
+		this.fraud_detection = fraud_detection;
+	}
+	public String getIp_address() {
+		return ip_address;
+	}
+	public void setIp_address(String ip_address) {
+		this.ip_address = ip_address;
 	}
 
 	
