@@ -29,7 +29,6 @@ import com.decidir.sdk.dto.refunds.RefundSubPaymentRequest;
 import com.decidir.sdk.dto.refunds.RollbackMPOSPayment;
 import com.decidir.sdk.dto.tokens.CardTokens;
 import com.decidir.sdk.dto.tokens.Token;
-import com.decidir.sdk.dto.tokens.TokenCs;
 import com.decidir.sdk.dto.tokens.TokenResponse;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.exceptions.responses.AnnulRefundException;
@@ -783,10 +782,6 @@ public final class Decidir {
 	
 	public DecidirResponse<TokenResponse> token (Token tokenReq) throws DecidirException{
 		return tokenService.token(tokenReq);
-	}
-	
-	public DecidirResponse<TokenResponse> tokenCS (TokenCs tokenCsReq) throws DecidirException {
-		return tokenService.tokenCS(tokenCsReq);
 	}
 	
 	/**

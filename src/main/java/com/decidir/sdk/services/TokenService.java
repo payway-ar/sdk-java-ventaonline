@@ -7,10 +7,10 @@ import com.decidir.sdk.converters.TokenConverter;
 import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.tokens.Token;
 import com.decidir.sdk.dto.tokens.TokenResponse;
-import com.decidir.sdk.dto.tokens.TokenCs;
 import com.decidir.sdk.exceptions.DecidirError;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.resources.TokenApi;
+
 import retrofit2.Response;
 
 public class TokenService {
@@ -32,20 +32,6 @@ public class TokenService {
 	}
 
 	public DecidirResponse<TokenResponse> token(Token token) {
-		try {
-			Response<TokenResponse> response = this.tokenApi.token(token).execute();
-			if (response.isSuccessful()) {
-				return tokenConverter.convert(response, response.body());
-			}
-
-			DecidirResponse<DecidirError> error = errorConverter.convert(response);
-			throw DecidirException.wrap(error.getStatus(), error.getMessage(), error.getResult());
-		} catch (IOException ioe) {
-			throw new DecidirException(HTTP_500, ioe.getMessage());
-		}
-	}
-
-	public DecidirResponse<TokenResponse> tokenCS(TokenCs token) {
 		try {
 			Response<TokenResponse> response = this.tokenApi.token(token).execute();
 			if (response.isSuccessful()) {
