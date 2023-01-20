@@ -32,6 +32,7 @@ import com.decidir.sdk.dto.tokens.Token;
 import com.decidir.sdk.dto.tokens.TokenResponse;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.exceptions.responses.AnnulRefundException;
+import com.decidir.sdk.exceptions.responses.PaymentAuth3dsResponseException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
 import com.decidir.sdk.exceptions.responses.RefundException;
 import com.decidir.sdk.payments.Payment;
@@ -827,7 +828,7 @@ public final class Decidir {
 	 * @see #getPayments(Integer, Integer, String, String)
 	 * @see #refundPayment(Long, RefundPayment, String)
 	 */
-	public DecidirResponse<PaymentAuth3dsResponse> paymentThreeds(PaymentRequest payment) throws PaymentException, DecidirException {
+	public DecidirResponse<PaymentAuth3dsResponse> paymentThreeds(PaymentRequest payment) throws PaymentAuth3dsResponseException, DecidirException {
 		return paymentsService.paymentThreeds(payment);
 	}
 

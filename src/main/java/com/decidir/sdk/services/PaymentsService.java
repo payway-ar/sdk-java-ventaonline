@@ -25,6 +25,7 @@ import com.decidir.sdk.dto.payments.threeds.PaymentAuth3dsResponse;
 import com.decidir.sdk.exceptions.DecidirError;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.exceptions.responses.Instruction3dsException;
+import com.decidir.sdk.exceptions.responses.PaymentAuth3dsResponseException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
 import com.decidir.sdk.resources.PaymentApi;
 
@@ -170,7 +171,7 @@ public class PaymentsService {
 		try {
 			Response<PaymentAuth3dsResponse> response = this.paymentApi.payThreeds(payment).execute();
 			//mapper
-			return paymentConverter.convertOrThrowSpecError(response, PaymentException.class, PaymentAuth3dsResponse.class);
+			return paymentConverter.convertOrThrowSpecError(response, PaymentAuth3dsResponseException.class, PaymentAuth3dsResponse.class);
 		} catch (IOException ioe) {
 			throw new DecidirException(HTTP_500, ioe.getMessage());
 		}
