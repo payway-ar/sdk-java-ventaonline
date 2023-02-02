@@ -1,17 +1,16 @@
 package com.decidir.sdk.dto.cybersource.verticals.travels;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class DepartureDate implements Serializable {
 
-	private Date departure_time;
+	private String departure_time;
 	private String departure_zone;
 	
-	public Date getDeparture_time() {
+	public String getDeparture_time() {
 		return departure_time;
 	}
-	public void setDeparture_time(Date departure_time) {
+	public void setDeparture_time(String departure_time) {
 		this.departure_time = departure_time;
 	}
 	public String getDeparture_zone() {
