@@ -159,11 +159,16 @@ public class MiClase {
 	String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 	String urlSandbox = "https://developers.decidir.com/api/v2/";
 	String urlProduccion = "https://live.decidir.com/api/v2/";
+	// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+	// Gruoper hace referencia al partner que esté consumiendo el servicio
+	String grouper = "";
+	// Developer hace referencia al desarrollador que cobra por transacción/otro
+	String developer = "";
 	int timeout = 10; // 10 segundos de timeout
 	//Para el ambiente Sandbox
-	Decidir decidirSandbox = new Decidir(privateApiKey, urlSandbox, timeout);
+	Decidir decidirSandbox = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 	//Para el ambiente de produccion
-	Decidir decidirProd = new Decidir(privateApiKey, urlProduccion, timeout);
+	Decidir decidirProd = new Decidir(privateApiKey, urlProduccion, timeout, grouper, developer);
 	// ...codigo...
 }
 ```
