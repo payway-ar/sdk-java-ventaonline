@@ -4,7 +4,7 @@ apply plugin: "maven-publish"
 apply plugin: 'eclipse'
 apply plugin: "maven"
 
-version = '2.7.3'
+version = '2.7.5'
 group = 'com.decidir.api'
 
 sourceCompatibility = 1.7
