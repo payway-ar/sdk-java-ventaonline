@@ -193,8 +193,13 @@ A partir de ahora y por el resto de la documentaci&oacute;n, se ejemplificar&aac
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
 int timeout = 10; // 10 segundos de timeout
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 //...codigo...
 ```
 
@@ -225,9 +230,14 @@ A continuaci&oacute;n se muestra un ejemplo con una transacci&oacute;n simple si
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 Customer customer = new Customer();
 customer.setId("test"); // user_id
 customer.setEmail("test@payway.com"); // user_email
@@ -275,8 +285,13 @@ A continuaci&oacute;n se muestra un ejemplo con una transacci&oacute;n pci sin [
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
 int timeout = 10; // 10 segundos de timeout
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
@@ -345,8 +360,13 @@ A continuaci&oacute;n se muestra un ejemplo con una transacci&oacute;n GDS simpl
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
 int timeout = 10; // 10 segundos de timeout
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
@@ -399,9 +419,14 @@ A continuaci&oacute;n se muestra un ejemplo con una transacci&oacute;n PCI sin [
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
@@ -469,9 +494,14 @@ A continuaci&oacute;n se muestra un ejemplo con una transacci&oacute;n BSA PCI s
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
@@ -561,9 +591,14 @@ A continuaci&oacute;n se muestra un ejemplo con una transacci&oacute;n Agro simp
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 Customer customer = new Customer();
 customer.setId("test"); // user_id
@@ -642,9 +677,14 @@ y se configura en el SAC.
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 Customer customer = new Customer();
 customer.setId("test"); // user_id
 customer.setEmail("test@payway.com"); // user_email
@@ -707,9 +747,14 @@ A continuaci&oacute;n se muestra un ejemplo con una transacci&oacute;n simple si
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 String privateApiKey = "00111115";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "http://localhost:9002/";
@@ -771,9 +816,14 @@ Este recurso admite la posibilidad de agregar filtros adicionales
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 Integer offset = 20;//OPCIONAL, desplazamiento en los resultados devueltos. Valor por defecto = 0.
 Integer pageSize = 10; //OPCIONAL, cantidad máxima de resultados retornados. Valor por defecto = 50.
@@ -806,9 +856,14 @@ Mediante este recurso, se genera una solicitud de información de un pago previa
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 long idPago = 000123L; //ID devuelto por la operacion de pago (NO CONFUNDIR con site_transaction_id asignado por el comercio)
 try {
@@ -845,9 +900,14 @@ Mediante este recurso, se genera una solicitud de anulación / devolución total
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 long idPago = 000123L; //ID devuelto por la operacion de pago (NO CONFUNDIR con site_transaction_id asignado por el comercio)
 String usuario = "usuario_que_realiza_la_accion"; //OPCIONAL NULLABLE, Usuario habilitado para realizar la anulacion/devolucion. Se utiliza para matener un registro de quien realiza la operacion
 RefundPayment refundPayment = new RefundPayment(); //Se instancia sin datos
@@ -883,9 +943,14 @@ Mediante este recurso, se genera una solicitud de anulación de devolución tota
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 long idPago = 000123L;//ID devuelto por la operacion de pago (NO CONFUNDIR con site_transaction_id asignado por el comercio)
 long idDevolucion = 00012L;//ID devuelto por la operacion de devolucion
 String usuario = "usuario_que_realiza_la_accion"; //OPCIONAL NULLABLE, Usuario habilitado para realizar la anulacion/devolucion. Se utiliza para matener un registro de quien realiza la operacion
@@ -923,9 +988,14 @@ Mediante este recurso, se genera una solicitud de devolución parcial de un pago
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 long idPago = 000123L; //ID devuelto por la operacion de pago (NO CONFUNDIR con site_transaction_id asignado por el comercio)
 String usuario = "usuario_que_realiza_la_accion"; //OPCIONAL NULLABLE, Usuario habilitado para realizar la anulacion/devolucion. Se utiliza para matener un registro de quien realiza la operacion
 long  montoDevolucion = 1250L // Expresado en centavos
@@ -965,9 +1035,14 @@ Mediante este recurso, se genera una solicitud de anulación de devolución parc
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 long idPago = 000123L;//ID devuelto por la operacion de pago (NO CONFUNDIR con site_transaction_id asignado por el comercio)
 long idDevolucion = 00012L;//ID devuelto por la operacion de devolucion
 String usuario = "usuario_que_realiza_la_accion"; //OPCIONAL NULLABLE, Usuario habilitado para realizar la anulacion/devolucion. Se utiliza para matener un registro de quien realiza la operacion
@@ -1015,9 +1090,14 @@ Este recurso admite la posibilidad de agregar filtros adicionales.
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 String usuario = "usuario_cliente"; // Usuario para el cual se consultan las tarjetas tokenizadas
 String bin = "450799"; //OPCIONAL, bin de la tarjeta.
@@ -1054,9 +1134,14 @@ del Customer).
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 Customer customer = new Customer();
 customer.setId("test"); // user_id
 customer.setEmail("test@payway.com"); // user_email
@@ -1103,9 +1188,14 @@ El servicio da la posibilidad de eliminar un token de tarjeta generadas, esto se
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 try {
 	DecidirResponse<Void> respuesta = decidir.deleteCardToken("ae9fc3e5-ff41-4de2-9c91-81030be1c4a6");
 	// Procesamiento de respuesta de eliminacion de tarjeta tokenizada
@@ -1405,9 +1495,14 @@ Para incorporar estos datos en el requerimiento inicial, se debe instanciar un o
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 PaymentRequest paymentRequest = new PaymentRequest();
 // Datos del pago
  // ...codigo...
@@ -1468,9 +1563,14 @@ Para incorporar estos datos en el requerimiento inicial, se debe instanciar un o
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 PaymentRequest paymentRequest = new PaymentRequest();
 // Datos del pago
@@ -1557,9 +1657,14 @@ Para incorporar estos datos en el requerimiento inicial, se debe instanciar un o
 // ...codigo...
 String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
 int timeout = 10; // 10 segundos de timeout
 //Ejemplo para el ambiente Sandbox
-Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout);
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
 
 PaymentRequest paymentRequest = new PaymentRequest();
 // Datos del pago
