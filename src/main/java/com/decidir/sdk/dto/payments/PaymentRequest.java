@@ -32,13 +32,14 @@ import com.decidir.sdk.payments.Payment;
 public class PaymentRequest extends Payment {
 
 	private String token;
+	private Spv spv;
 
 	public String getToken() {
 		return token;
 	}
-
 	public void setToken(String token) {
 		this.token = token;
 	}
-
+	public Spv getSpv() {return spv;}
+	public void setSpv(Spv spv) {this.spv = spv;}
 }
