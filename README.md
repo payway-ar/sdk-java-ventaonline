@@ -137,7 +137,7 @@ Se puede realizar la integración a través de un manager de dependencias, o bie
 +  __version:__ _2.7.1_
 
 #### Descarga manual
-[Versi&oacute;n 2.7.1](https://github.com/payway-ar/sdk-java-ventaonline/blob/master/dist/payway-v2.7.5-java7.jar)
+[Versi&oacute;n 2.7.6](https://github.com/payway-ar/sdk-java-ventaonline/blob/master/dist/payway-v2.7.6-java7.jar)
 
 <a name="versionesdejavasoportadas"></a>
 ### Versiones de Java soportadas
