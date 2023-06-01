@@ -4,6 +4,10 @@ import com.decidir.sdk.configuration.DecidirConfiguration;
 import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.annullment.AnnulRefundResponse;
 import com.decidir.sdk.dto.instruction3ds.Instruction3dsData;
+import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentRequest;
+import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentResponse;
+import com.decidir.sdk.dto.internaltoken.InternalTokenRequest;
+import com.decidir.sdk.dto.internaltoken.InternalTokenResponse;
 import com.decidir.sdk.dto.payments.Page;
 import com.decidir.sdk.dto.payments.PaymentRequest;
 import com.decidir.sdk.dto.payments.PaymentResponse;
@@ -37,10 +41,12 @@ import com.decidir.sdk.exceptions.responses.PaymentException;
 import com.decidir.sdk.exceptions.responses.RefundException;
 import com.decidir.sdk.payments.Payment;
 import com.decidir.sdk.resources.CardTokenApi;
+import com.decidir.sdk.resources.InternalTokenApi;
 import com.decidir.sdk.resources.PaymentApi;
 import com.decidir.sdk.resources.RefundApi;
 import com.decidir.sdk.resources.TokenApi;
 import com.decidir.sdk.services.CardTokenService;
+import com.decidir.sdk.services.InternalTokenService;
 import com.decidir.sdk.services.PaymentConfirmService;
 import com.decidir.sdk.services.PaymentsService;
 import com.decidir.sdk.services.RefundsService;
@@ -50,12 +56,14 @@ import com.decidir.sdk.services.TokenService;
 public final class Decidir {
 
 	private static String apiUrl = "https://live.decidir.com/api/v2/";
+	private static String apiUrlInternalToken = "https://live.decidir.com/api/v1/transaction_gateway/";
 	private static Integer timeOut = 79;
 	private PaymentsService paymentsService;
 	private RefundsService refundsService;
 	private CardTokenService cardTokenService;
 	private PaymentConfirmService paymentConfirmService;
 	private TokenService tokenService;
+	private InternalTokenService internalTokenService;
 
 	/**
 	 * Creates a new instance to communicate with Decidir Api.  
@@ -114,6 +122,7 @@ public final class Decidir {
 	public Decidir(final String secretAccessToken, final String apiUrl, final Integer timeOut, final String grouper, final String developer) {
 		if (apiUrl != null) {
 			this.apiUrl = apiUrl;
+			this.apiUrlInternalToken = apiUrl;
 		}
 		if (timeOut != null) {
 			this.timeOut = timeOut;
@@ -127,7 +136,9 @@ public final class Decidir {
 		this.paymentConfirmService = PaymentConfirmService.getInstance(
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class, grouper, developer));
 		this.tokenService = TokenService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, TokenApi.class, grouper, developer)); 
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, TokenApi.class, grouper, developer));
+		this.internalTokenService = InternalTokenService.getInstance(
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrlInternalToken, this.timeOut, InternalTokenApi.class, grouper, developer));
 	}
 	
 	/**
@@ -834,5 +845,13 @@ public final class Decidir {
 
 	public DecidirResponse<PaymentAuth3dsResponse> instructionThreeDS(String xConsumerUsername, Instruction3dsData data) {
 		return paymentsService.sendInstructionThreeDS(xConsumerUsername, data);
+	}
+
+	public DecidirResponse<InternalTokenResponse> internalToken(InternalTokenRequest internalTokenRequestReq) throws DecidirException{
+		return internalTokenService.token(internalTokenRequestReq);
+	}
+
+	public DecidirResponse<InternalTokenPaymentResponse> internalTokenPayment(InternalTokenPaymentRequest request) {
+		return internalTokenService.payment(request);
 	}
 }
