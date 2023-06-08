@@ -39,6 +39,9 @@ Modulo para conexión con gateway de pago Payway
     + [Listado de tarjetas tokenizadas](#listadotarjetastokenizadas)
     + [Ejecución de pago tokenizado](#pagotokenizado)
     + [Eliminación de tarjeta tokenizada](#eliminartarjetatokenizada)
+  + [Tokenización Interna](#tokenizacioninterna)
+    + [Obtener Token](#tokenizacioninternaobtenertoken)
+    + [Pagar](#tokenizacioninternapagar)
   + [Integración con Cybersource](#cybersource)
     + [Parámetros Comunes](#parametros-comunes)
     + [Retail](#retail)
@@ -1212,6 +1215,85 @@ try {
 [<sub>Volver a inicio</sub>](#inicio)
 
 <a name="cybersource"></a>
+
+<a name="tokenizacioninterna"></a>
+## Tokenización Interna
+
+Esta funcionalidad permite que luego de realizar una compra con una tarjeta, se genere un token alfanumerico unico en el backend de Payway, esto permite que a la hora de comprar nuevamente con esta tarjeta solo requerira el codigo de seguridad.
+Como primer paso se debe realizar una un pago normal, el token generado estara en el campo "token" de la respuesta.
+
+<a name="tokenizacioninternaobtenertoken"></a>
+### Obtener el Token
+
+Permite obtener el token.
+
+```java
+String apikey = "YKcWXjI2aoSnp60urwLd6TbLYNuybcWC";
+CardDataRequestModel cardDataRequestModel = new CardDataRequestModel();
+cardDataRequestModel.setCard_number("4507990000004905");
+cardDataRequestModel.setExpiration_date("1250");
+cardDataRequestModel.setCard_holder("Jorge Jorgelin");
+cardDataRequestModel.setSecurity_code("123");
+cardDataRequestModel.setAccount_number("12345678901234567890");
+cardDataRequestModel.setEmail_holder("asd@medina.com");
+
+InternalTokenRequest internalTokenRequest = new InternalTokenRequest();
+internalTokenRequest.setCard_data(cardDataRequestModel);
+internalTokenRequest.setEstablishment_number("11223344");
+try {
+    return new ResponseEntity<>(internalTokenService.tokens(apikey, internalTokenRequest), HttpStatus.OK);
+}
+catch (InternalTokenException e) {
+    logger.error(e.getMessage());
+    return new ResponseEntity<>(e.getResponse(), HttpStatus.valueOf(e.getStatus()));
+}
+catch (Exception e) {
+    logger.error(e.getMessage());
+    return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+}
+```
+
+[<sub>Volver a inicio</sub>](#inicio)
+
+<a name="tokenizacioninternapagar"></a>
+### Pagar
+
+Una vez que se obtiene el token a partir de la tarjeta tokenizada, se deberá ejecutar la solicitud de pago. Además del token de pago y los parámetros propios de la transacción, el comercio deberá identificar la compra con el "site_transaction_id" y "user_id"(id
+del Customer).
+
+```java
+String apikey = "YKcWXjI2aoSnp60urwLd6TbLYNuybcWC";
+TransactionDataRequestModel transactionDataRequestModel = new TransactionDataRequestModel();
+transactionDataRequestModel.setMerchant_transaction_id("numero aleatorio");
+transactionDataRequestModel.setPayment_method_id("1");
+transactionDataRequestModel.setAmount("100");
+transactionDataRequestModel.setCurrency("ARS");
+transactionDataRequestModel.setInstallments("1");
+transactionDataRequestModel.setPayment_type("single");
+transactionDataRequestModel.setDescription("tx-tokenizada");
+CustomerDataRequestModel customerDataRequestModel = new CustomerDataRequestModel();
+customerDataRequestModel.setToken_id("66617169-68b1-4040-af8f-3c648d81b8f0");
+customerDataRequestModel.setIdentification_type("dni");
+customerDataRequestModel.setIdentification_number("12312312");
+InternalTokenPaymentRequest internalTokenPaymentRequest = new InternalTokenPaymentRequest();
+internalTokenPaymentRequest.setMerchant_id("11223344");
+internalTokenPaymentRequest.setTransaction_data(transactionDataRequestModel);
+internalTokenPaymentRequest.setCustomer_data(customerDataRequestModel);
+try {
+    return new ResponseEntity<>(internalTokenService.payment(apikey, paymentRequestModel), HttpStatus.OK);
+}
+catch (DecidirException e) {
+    logger.error(e.getMessage());
+    return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(e.getStatus()));
+}
+catch (InternalTokenException e) {
+    logger.error(e.getMessage());
+    return new ResponseEntity<>(e.getResponse(), HttpStatus.valueOf(e.getStatus()));
+}
+```
+
+[<sub>Volver a inicio</sub>](#inicio)
+
 
 ## Integración con Cybersource
 
