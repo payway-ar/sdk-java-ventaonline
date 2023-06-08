@@ -35,6 +35,7 @@ import com.decidir.sdk.dto.tokens.CardTokens;
 import com.decidir.sdk.dto.tokens.Token;
 import com.decidir.sdk.dto.tokens.TokenResponse;
 import com.decidir.sdk.exceptions.DecidirException;
+import com.decidir.sdk.exceptions.InternalTokenException;
 import com.decidir.sdk.exceptions.responses.AnnulRefundException;
 import com.decidir.sdk.exceptions.responses.PaymentAuth3dsResponseException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
@@ -847,11 +848,11 @@ public final class Decidir {
 		return paymentsService.sendInstructionThreeDS(xConsumerUsername, data);
 	}
 
-	public DecidirResponse<InternalTokenResponse> internalToken(InternalTokenRequest internalTokenRequestReq) throws DecidirException{
+	public DecidirResponse<InternalTokenResponse> internalToken(InternalTokenRequest internalTokenRequestReq) throws InternalTokenException {
 		return internalTokenService.token(internalTokenRequestReq);
 	}
 
-	public DecidirResponse<InternalTokenPaymentResponse> internalTokenPayment(InternalTokenPaymentRequest request) {
+	public DecidirResponse<InternalTokenPaymentResponse> internalTokenPayment(InternalTokenPaymentRequest request)  throws InternalTokenException {
 		return internalTokenService.payment(request);
 	}
 }
