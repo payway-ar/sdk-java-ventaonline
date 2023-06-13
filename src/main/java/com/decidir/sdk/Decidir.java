@@ -8,6 +8,8 @@ import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentRequest;
 import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentResponse;
 import com.decidir.sdk.dto.internaltoken.InternalTokenRequest;
 import com.decidir.sdk.dto.internaltoken.InternalTokenResponse;
+import com.decidir.sdk.dto.checkout.CheckoutRequest;
+import com.decidir.sdk.dto.checkout.CheckoutResponse;
 import com.decidir.sdk.dto.payments.Page;
 import com.decidir.sdk.dto.payments.PaymentRequest;
 import com.decidir.sdk.dto.payments.PaymentResponse;
@@ -46,18 +48,20 @@ import com.decidir.sdk.resources.InternalTokenApi;
 import com.decidir.sdk.resources.PaymentApi;
 import com.decidir.sdk.resources.RefundApi;
 import com.decidir.sdk.resources.TokenApi;
+import com.decidir.sdk.resources.CheckoutApi;
 import com.decidir.sdk.services.CardTokenService;
 import com.decidir.sdk.services.InternalTokenService;
 import com.decidir.sdk.services.PaymentConfirmService;
 import com.decidir.sdk.services.PaymentsService;
 import com.decidir.sdk.services.RefundsService;
 import com.decidir.sdk.services.TokenService;
-
+import com.decidir.sdk.services.CheckoutService;
 
 public final class Decidir {
 
 	private static String apiUrl = "https://live.decidir.com/api/v2/";
 	private static String apiUrlInternalToken = "https://live.decidir.com/api/v1/transaction_gateway/";
+	private static String apiUrlCheckout = "https://live.decidir.com/api/checkout";
 	private static Integer timeOut = 79;
 	private PaymentsService paymentsService;
 	private RefundsService refundsService;
@@ -65,6 +69,7 @@ public final class Decidir {
 	private PaymentConfirmService paymentConfirmService;
 	private TokenService tokenService;
 	private InternalTokenService internalTokenService;
+	private CheckoutService checkoutService;
 
 	/**
 	 * Creates a new instance to communicate with Decidir Api.  
@@ -124,6 +129,7 @@ public final class Decidir {
 		if (apiUrl != null) {
 			this.apiUrl = apiUrl;
 			this.apiUrlInternalToken = apiUrl;
+			this.apiUrlCheckout = apiUrl;
 		}
 		if (timeOut != null) {
 			this.timeOut = timeOut;
@@ -140,6 +146,8 @@ public final class Decidir {
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, TokenApi.class, grouper, developer));
 		this.internalTokenService = InternalTokenService.getInstance(
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrlInternalToken, this.timeOut, InternalTokenApi.class, grouper, developer));
+		this.checkoutService = CheckoutService.getInstance(
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrlCheckout, this.timeOut, CheckoutApi.class, grouper, developer));
 	}
 	
 	/**
@@ -854,5 +862,9 @@ public final class Decidir {
 
 	public DecidirResponse<InternalTokenPaymentResponse> internalTokenPayment(InternalTokenPaymentRequest request)  throws InternalTokenException {
 		return internalTokenService.payment(request);
+	}
+	
+	public DecidirResponse<CheckoutResponse> checkoutHash(CheckoutRequest request){
+		return checkoutService.checkoutHash(request);
 	}
 }
