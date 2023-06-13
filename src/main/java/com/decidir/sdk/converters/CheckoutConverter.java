@@ -1,7 +1,11 @@
 package com.decidir.sdk.converters;
 
+import java.io.IOException;
+
 import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.checkout.CheckoutResponse;
+import com.decidir.sdk.exceptions.CheckoutError;
+import com.decidir.sdk.exceptions.InternalTokenError;
 
 import retrofit2.Response;
 
@@ -14,4 +18,11 @@ public class CheckoutConverter extends DecidirConverter {
         dResponse.setMessage(response.message());
         return dResponse;
     }
+	 public DecidirResponse<CheckoutError> convert(Response response) throws IOException {
+	        DecidirResponse<CheckoutError> dResponse = new DecidirResponse();
+	        dResponse.setStatus(response.code());
+	        dResponse.setResult(super.convert(response.errorBody().bytes(), CheckoutError.class));
+	        dResponse.setMessage(response.message());
+	        return dResponse;
+	    }
 }

@@ -6,7 +6,7 @@ public class CheckoutRequest {
     private CheckoutProductModel [] products;
 	private double total_price;
     private String site;
-    private String succes_url;
+    private String success_url;
     private String redirect_url;
     private String cancel_url;
     private String notifications_url;
@@ -57,11 +57,11 @@ public class CheckoutRequest {
 	}
 	
 	
-	public String getSucces_url() {
-		return succes_url;
+	public String getSuccess_url() {
+		return success_url;
 	}
-	public void setSucces_url(String succes_url) {
-		this.succes_url = succes_url;
+	public void setSuccess_url(String success_url) {
+		this.success_url = success_url;
 	}
 	
 	

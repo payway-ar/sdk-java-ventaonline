@@ -61,7 +61,7 @@ public final class Decidir {
 
 	private static String apiUrl = "https://live.decidir.com/api/v2/";
 	private static String apiUrlInternalToken = "https://live.decidir.com/api/v1/transaction_gateway/";
-	private static String apiUrlCheckout = "https://qa.decidir.com/api/orchestrator/checkout/";
+	private static String apiUrlCheckout = "http://192.168.76.173:21724/api/";
 	private static Integer timeOut = 79;
 	private PaymentsService paymentsService;
 	private RefundsService refundsService;

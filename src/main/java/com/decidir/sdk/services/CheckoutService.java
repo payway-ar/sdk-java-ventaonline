@@ -2,12 +2,13 @@ package com.decidir.sdk.services;
 
 import java.io.IOException;
 
-import com.decidir.sdk.converters.ErrorConverter;
 import com.decidir.sdk.converters.CheckoutConverter;
+import com.decidir.sdk.converters.ErrorConverter;
 import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.checkout.CheckoutRequest;
 import com.decidir.sdk.dto.checkout.CheckoutResponse;
-import com.decidir.sdk.exceptions.DecidirError;
+import com.decidir.sdk.exceptions.CheckoutError;
+import com.decidir.sdk.exceptions.CheckoutException;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.resources.CheckoutApi;
 
@@ -38,8 +39,8 @@ public class CheckoutService {
 				return checkoutConverter.convert(response, response.body());
 			}
 
-			DecidirResponse<DecidirError> error = errorConverter.convert(response);
-			throw DecidirException.wrap(error.getStatus(), error.getMessage(), error.getResult());
+			DecidirResponse<CheckoutError> error = checkoutConverter.convert(response);
+			throw new CheckoutException(error.getStatus(), error.getMessage(), error.getResult());
 		} catch (IOException ioe) {
 			throw new DecidirException(HTTP_500, ioe.getMessage());
 		}
