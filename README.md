@@ -58,6 +58,7 @@ Modulo para conexión con gateway de pago Payway
       + [NotFoundException](#notFoundException)
     + [RefundException](#refundException)
     + [AnnulRefundException](#annulRefundException)
++ [Link Checkout](#linkCheckout)
 + [Tablas de referencia](#tablasreferencia)
   + [Códigos de Medios de Pago](#codigos-de-medios-de-pago)
   + [Divisas Aceptadas](#divisasa)
@@ -2051,6 +2052,65 @@ try {
 ```
 
 [<sub>Volver a inicio</sub>](#inicio)
+
+<a name="linkCheckout"></a>
+### Link Checkout
+
+Este método permite obtener un hash de pago desde el checkout de payway
+
+
+```java
+// ...codigo...
+
+String urlSandbox = "https://developers.decidir.com/api/checkout/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
+//Ejemplo para el ambiente Sandbox
+Decidir decidir = new Decidir("", urlSandbox, timeout, grouper, developer);
+
+CheckoutRequest checkoutRequest = new CheckoutRequest();
+checkoutRequest.setId("1234");
+checkoutRequest.setOrigin_platform("qw121212");
+CheckoutProductModel product = new CheckoutProductModel();
+product.setId(4444);
+product.setVolume(2.0);
+product.setWeight(0.1);
+product.setValue(1000.00);
+product.setDescription("Remera");
+product.setCategoryId(1);
+product.setQuantity(3);
+checkoutRequest.setProducts(product);
+checkoutRequest.setTotal_price(3000.00);
+checkoutRequest.setSite("00097001");
+checkoutRequest.setSuccess_url("http://www.google.com/");
+checkoutRequest.setRedirect_url("https://www.youtube.com/");
+checkoutRequest.setCancel_url("http://www.google.com/");
+checkoutRequest.setNotifications_url("http://192.168.76.14:10005/");
+checkoutRequest.setLife_time("1000");
+checkoutRequest.setTemplate_id("1");
+int[] installments = {1};
+checkoutRequest.setInstallments(installments);
+checkoutRequest.setId_payment_method("credit_card");
+checkoutRequest.setPlan_gobierno(false);
+
+try {
+	return new ResponseEntity<>(checkoutService.checkoutHash("", checkoutRequest), HttpStatus.OK);
+
+}catch (CheckoutException e) {
+        logger.error(e.getMessage());
+        return new ResponseEntity<>(e.getResponse(), HttpStatus.valueOf(e.getStatus()));
+}catch (Exception e) {
+        logger.error(e.getMessage());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+```
+
+[<sub>Volver a inicio</sub>](#inicio)
+
 
 <a name="tablasreferencia"></a>
 
