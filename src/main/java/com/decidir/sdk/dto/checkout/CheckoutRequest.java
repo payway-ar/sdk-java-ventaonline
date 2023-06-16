@@ -3,6 +3,7 @@ package com.decidir.sdk.dto.checkout;
 public class CheckoutRequest {
     private String id;
     private String origin_platform;
+    private String payment_description;
     private CheckoutProductModel [] products;
 	private double total_price;
     private String site;
@@ -33,9 +34,16 @@ public class CheckoutRequest {
 	}
 	
 	
+	public String getPayment_description() {
+		return payment_description;
+	}
+	public void setPayment_description(String payment_description) {
+		this.payment_description = payment_description;
+	}
 	public CheckoutProductModel[] getProducts() {
 		return products;
 	}
+	
 	public void setProducts(CheckoutProductModel[] products) {
 		this.products = products;
 	}

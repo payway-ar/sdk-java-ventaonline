@@ -2,8 +2,7 @@ apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: "maven-publish"
 apply plugin: 'eclipse'
-apply plugin: "maven-publish"
-
+apply plugin: "maven"
 version = '2.7.7'
 group = 'com.decidir.api'
 
