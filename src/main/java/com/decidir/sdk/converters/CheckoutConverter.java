@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.checkout.CheckoutResponse;
 import com.decidir.sdk.exceptions.CheckoutError;
-import com.decidir.sdk.exceptions.InternalTokenError;
+import com.decidir.sdk.exceptions.CheckoutValidationError;
 
 import retrofit2.Response;
 
@@ -22,6 +22,14 @@ public class CheckoutConverter extends DecidirConverter {
 	        DecidirResponse<CheckoutError> dResponse = new DecidirResponse();
 	        dResponse.setStatus(response.code());
 	        dResponse.setResult(super.convert(response.errorBody().bytes(), CheckoutError.class));
+	        dResponse.setMessage(response.message());
+	        return dResponse;
+	    }
+	 
+	 public DecidirResponse<CheckoutValidationError> convertValidationError(Response response) throws IOException {
+	        DecidirResponse<CheckoutValidationError> dResponse = new DecidirResponse();
+	        dResponse.setStatus(response.code());
+	        dResponse.setResult(super.convert(response.errorBody().bytes(), CheckoutValidationError.class));
 	        dResponse.setMessage(response.message());
 	        return dResponse;
 	    }

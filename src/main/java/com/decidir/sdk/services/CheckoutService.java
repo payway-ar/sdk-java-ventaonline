@@ -9,6 +9,8 @@ import com.decidir.sdk.dto.checkout.CheckoutRequest;
 import com.decidir.sdk.dto.checkout.CheckoutResponse;
 import com.decidir.sdk.exceptions.CheckoutError;
 import com.decidir.sdk.exceptions.CheckoutException;
+import com.decidir.sdk.exceptions.CheckoutValidationError;
+import com.decidir.sdk.exceptions.CheckoutValidationException;
 import com.decidir.sdk.exceptions.DecidirException;
 import com.decidir.sdk.resources.CheckoutApi;
 
@@ -38,9 +40,15 @@ public class CheckoutService {
 			if (response.isSuccessful()) {
 				return checkoutConverter.convert(response, response.body());
 			}
-
-			DecidirResponse<CheckoutError> error = checkoutConverter.convert(response);
-			throw new CheckoutException(error.getStatus(), error.getMessage(), error.getResult());
+			
+			if (response.code() == 412) {
+				DecidirResponse<CheckoutError> error = checkoutConverter.convert(response);
+				throw new CheckoutException(error.getStatus(), error.getMessage(), error.getResult());
+			}
+			
+			DecidirResponse<CheckoutValidationError> error = checkoutConverter.convertValidationError(response);
+			throw new CheckoutValidationException(error.getStatus(), error.getMessage(), error.getResult());
+			
 		} catch (IOException ioe) {
 			throw new DecidirException(HTTP_500, ioe.getMessage());
 		}
