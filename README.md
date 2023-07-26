@@ -442,6 +442,14 @@ aggregateData.setSub_agrupator(subAgrupator);
 
 paymentPciRequest.setAggregate_data(aggregateData);
 
+CardTokenData cardTokenData = new CardTokenData();
+cardTokenData.setToken("4540730005109054");
+cardTokenData.setEci("05");
+cardTokenData.setCryptogram("cryptogram_123467890");
+
+paymentPciRequest.setTokenCardData(cardTokenData);
+
+
 try {
 	DecidirResponse<PaymentResponse> paymentResponse = decidir.payment(paymentPciRequest);
 	// Procesamiento de respuesta de ejecucion de pago
