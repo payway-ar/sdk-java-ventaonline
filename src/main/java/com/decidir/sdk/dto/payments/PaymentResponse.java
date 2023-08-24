@@ -1,6 +1,7 @@
 package com.decidir.sdk.dto.payments;
 
 import java.io.Serializable;
+
 import com.decidir.sdk.dto.Status;
 import com.decidir.sdk.dto.StatusDetails;
 import com.decidir.sdk.dto.auth3ds.Auth3dsResponse;
@@ -40,8 +41,8 @@ public class PaymentResponse extends Payment implements Serializable {
 	private String establishment_name;
 	@JsonInclude(Include.ALWAYS)
 	private Spv spv;
-	private String card_data;
 	private String token;
+	private Object card_data;
 
 	public String getToken() {
 		return token;
@@ -131,9 +132,9 @@ public class PaymentResponse extends Payment implements Serializable {
 		this.auth_3ds_response = auth_3ds_response;
 	}
 
-	public String getCard_data() {return card_data;}
+	public Object getCard_data() {return card_data;}
 
-	public void setCard_data(String card_data) {this.card_data = card_data;}
+	public void setCard_data(Object card_data) {this.card_data = card_data;}
 
 	public String getCard_brand() {return card_brand;}
 
