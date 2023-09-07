@@ -47,8 +47,7 @@ public class CheckoutRequest {
 	public void setProducts(CheckoutProductModel[] products) {
 		this.products = products;
 	}
-		
-		
+
 	public double getTotal_price() {
 		return total_price;
 	}
