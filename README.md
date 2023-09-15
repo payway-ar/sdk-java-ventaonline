@@ -16,6 +16,7 @@ Modulo para conexión con gateway de pago Payway
     + [Ejecución del Pago](#payment)
       + [Transacción simple](#single)
       + [Transacción PCI](#pci)
+      + [Ejecución del pago PCI Tokenizado](#payment-pci-tokenizado)
       + [Transacción GDS](#gds)
       + [Transacción GDS PCI](#gdspci)
       + [Transacción BSA PCI](#bsapci)
@@ -27,6 +28,8 @@ Modulo para conexión con gateway de pago Payway
       <!--- + [Transacción de Comercio Agregador](#pagoAgregador)(TODO) -->
       <!--- + [Transacción Offline](#pagoOffline) (TODO) -->
       <!--- + [Transacción PMC](#pagoPMC)(TODO) -->
+    + [Ejecución de pago simple con 3ds](#payment-simple-3ds)
+    + [Ejecucion de resolucion del challenge](#payment-challenge-3ds)
     + [Listado de Pagos](#getallpayments)
     + [Información de un Pago](#getpaymentinfo)
     + [Devoluciones de pagos](#refunds)
@@ -39,6 +42,9 @@ Modulo para conexión con gateway de pago Payway
     + [Listado de tarjetas tokenizadas](#listadotarjetastokenizadas)
     + [Ejecución de pago tokenizado](#pagotokenizado)
     + [Eliminación de tarjeta tokenizada](#eliminartarjetatokenizada)
+  + [Tokenización Interna](#tokenizacioninterna)
+    + [Obtener Token](#tokenizacioninternaobtenertoken)
+    + [Pagar](#tokenizacioninternapagar)
   + [Integración con Cybersource](#cybersource)
     + [Parámetros Comunes](#parametros-comunes)
     + [Retail](#retail)
@@ -55,6 +61,7 @@ Modulo para conexión con gateway de pago Payway
       + [NotFoundException](#notFoundException)
     + [RefundException](#refundException)
     + [AnnulRefundException](#annulRefundException)
++ [Link Checkout](#linkCheckout)
 + [Tablas de referencia](#tablasreferencia)
   + [Códigos de Medios de Pago](#codigos-de-medios-de-pago)
   + [Divisas Aceptadas](#divisasa)
@@ -137,7 +144,7 @@ Se puede realizar la integración a través de un manager de dependencias, o bie
 +  __version:__ _2.7.1_
 
 #### Descarga manual
-[Versi&oacute;n 2.7.5](https://github.com/payway-ar/sdk-java-ventaonline/blob/master/dist/payway-v2.7.5-java7.jar)
+[Versi&oacute;n 2.7.6](https://github.com/payway-ar/sdk-java-ventaonline/blob/master/dist/payway-v2.7.6-java7.jar)
 
 <a name="versionesdejavasoportadas"></a>
 ### Versiones de Java soportadas
@@ -347,6 +354,118 @@ try {
 
 [<sub>Volver a inicio</sub>](#inicio)
 
+
+<a name="payment-pci-tokenizado"></a>
+
+### Ejecución del pago PCI Tokenizado
+A continuaci&oacute;n se muestra un ejemplo con una transacci&oacute;n pci sin [Cybersource](#cybersource) tokenizado.
+
+*Aclaracion* : amount es un campo long el cual representa el valor en centavos.
+
+```java
+// ...codigo...
+String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
+String urlSandbox = "https://developers.decidir.com/api/v2/";
+int timeout = 10; // 10 segundos de timeout
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
+//Ejemplo para el ambiente Sandbox
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
+
+Customer customer = new Customer();
+customer.setId("test"); // user_id
+customer.setEmail("test@payway.com"); // user_email
+
+PaymentPciRequest paymentPciRequest = new PaymentPciRequest();
+CardData cardData = new CardData();
+cardData.setCard_expiration_month("12");
+cardData.setCard_expiration_year("20");
+cardData.setIp_address("192.168.1.10"); // Customer IP, en caso de usar Cybersource se usa en el campo CSBTIPADDRESS 
+
+IdentificationType type = IdentificationType.fromId(1); //tipo de documento, ejemplo dni
+String number = "23968498"; // nro de documento
+
+Identification identification = new Identification(); //identificacion personal
+identification.setNumber(number);
+identification.setType(type);
+cardData.setCard_holder_identification(identification);
+cardData.setCard_holder_name("Juan");
+cardData.setCard_number("4509790113276723");
+//RetailFraudDetectionData retail =  new RetailFraudDetectionData();
+//RetailTPFraudDetectionData retailTP =  new RetailTPFraudDetectionData();
+ServicesFraudDetectionData services =  new ServicesFraudDetectionData();
+
+paymentPciRequest.setCard_data(cardData);
+paymentPciRequest.setSite_transaction_id("TX00001234"); //ID de transaccion asignada por el comercio, no puede repetirse
+paymentPciRequest.setCustomer(customer);
+paymentPciRequest.setPayment_method_id(1); //VISA
+paymentPciRequest.setBin("450979");
+paymentPciRequest.setAmount(23250L);//Valor en centavos: $232.50
+paymentPciRequest.setCurrency(Currency.ARS);
+paymentPciRequest.setInstallments(1);
+paymentPciRequest.setPayment_type(PaymentType.SINGLE); //Tipo de pago simple
+List<SubPayment> sub_payments = new ArrayList<SubPayment>(); // Llenar en caso de transaccion distribuida por monto
+paymentPciRequest.setSub_payments(sub_payments); //Debe enviarse una lista vacia
+
+//Logica de pago tokenizado
+paymentPciRequest.setIsTokenizedPayment(true);
+Aggregator aggregateData = new Aggregator();
+aggregateData.setIndicator("1");
+aggregateData.setIdentification_number("30598910045");
+aggregateData.setBill_to_pay("Decidir_Test");
+aggregateData.setBill_to_refund("Decidir_Test");
+aggregateData.setMerchant_name("DECIDIR");
+aggregateData.setStreet("Lavarden");
+aggregateData.setNumber("247");
+aggregateData.setPostal_code("C1437FBE");
+aggregateData.setCategory("05044");
+aggregateData.setChannel("005");
+aggregateData.setGeographic_code("C1437");
+aggregateData.setCity("Ciudad de Buenos Aires");
+aggregateData.setMerchant_id("decidir_Agregador");
+aggregateData.setProvince("Buenos Aires");
+aggregateData.setCountry("Argentina")
+aggregateData.setMerchant_email("qa@decidir.com");
+aggregateData.setMerchant_phone("+541135211111");
+
+SubAgrupator subAgrupator = new SubAgrupator();
+subAgrupator.setIndicator("2");
+subAgrupator.setIdentification_number("30598911045");
+subAgrupator.setMerchant_name("PAYWAY");
+subAgrupator.setStreet("La rioja");
+subAgrupator.setCategory("05045");
+
+aggregateData.setSub_agrupator(subAgrupator);
+
+paymentPciRequest.setAggregate_data(aggregateData);
+
+CardTokenData cardTokenData = new CardTokenData();
+cardTokenData.setToken("4540730005109054");
+cardTokenData.setEci("05");
+cardTokenData.setCryptogram("cryptogram_123467890");
+
+paymentPciRequest.setTokenCardData(cardTokenData);
+
+
+try {
+	DecidirResponse<PaymentResponse> paymentResponse = decidir.payment(paymentPciRequest);
+	// Procesamiento de respuesta de ejecucion de pago
+	// ...codigo...
+} catch (PaymentException pe) {
+	 // Manejo de pago rechazado
+	 // ...codigo...
+} catch (DecidirException de) {
+	// Manejo de excepcion  de Payway
+	 // ...codigo...
+} catch (Exception e) {
+	 //Manejo de excepcion general
+	// ...codigo...
+}
+// ...codigo...
+```
 
 <a name="gds"></a>
 
@@ -805,6 +924,117 @@ try {
 
 [<sub>Volver a inicio</sub>](#inicio)
 
+<a name="payment-simple-3ds"></a>
+
+### Ejecución de pago simple con 3ds
+En este caso se necesita agregar el flag "cardholder_auth_required" en true y se le debe pasar el objeto "auth_3ds_data". 
+
+```java
+// ...codigo...
+String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
+String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
+int timeout = 10; // 10 segundos de timeout
+//Ejemplo para el ambiente Sandbox
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
+
+int timeout = 10; // 10 segundos de timeout
+//Ejemplo para el ambiente Sandbox
+
+PaymentRequest paymentRequest = new PaymentRequest();
+paymentRequest.setToken("a6f05789-10df-4464-a318-887a1520204b"); // token de pago
+paymentRequest.setSite_transaction_id("TX0000000001"); //ID de transaccion asignada por el comercio, no puede repetirse
+paymentRequest.setCustomer(customer);
+paymentRequest.setPayment_method_id(1); //VISA
+paymentRequest.setBin("450979");
+paymentRequest.setAmount(23250L);//Valor en centavos: $232.50
+paymentRequest.setCurrency(Currency.ARS);
+paymentRequest.setInstallments(1);
+paymentRequest.setPayment_type(PaymentType.SINGLE);
+paymentRequest.setCardHolderAuthRequired(true);
+
+Auth3dsData auth3dsData = new Auth3dsData();
+auth3dsData.setAccept_header("application/json");
+auth3dsData.setColor_depth("32");
+auth3dsData.setDevice_type("BROWSER");
+auth3dsData.setIp("1.12.123.255");
+auth3dsData.setJava_enabled(true);
+auth3dsData.setLenguage("es");
+auth3dsData.setScreen_height(28);
+auth3dsData.setScreen_width(4);
+auth3dsData.setTime_zone_offset(570);
+auth3dsData.setUser_agent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0)Gecko/20100101");
+
+paymentRequest.setAuth_3ds_data(auth3dsData);
+
+try {
+    DecidirResponse<PaymentAuth3dsResponse> paymentResponse = decidir.paymentThreeds(paymentRequest);
+
+   PaymentAuth3dsResponse paymentResult = paymentResponse.getResult();
+   // Procesamiento de respuesta de ejecucion de pago
+   // ...codigo...
+} catch (PaymentException | PaymentAuth3dsResponseException pe) {
+   // Manejo de pago rechazado
+   // ...codigo...
+} catch (DecidirException de) {
+   // Manejo de excepcion  de payway
+   // ...codigo...
+} catch (Exception e) {
+   //Manejo de excepcion general
+   // ...codigo...
+}
+ // ...codigo...
+```
+
+<a name="payment-challenge-3ds"></a>
+
+### Ejecución de pago con challenge de 3ds
+Ejemplo de resolucion al ejecutar el pago que nos devuelve el resultado con el estado CHALLENGE_PENDING o FINGERPRINT_PENDING, 
+
+```java
+// ...codigo...
+String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
+String urlSandbox = "https://developers.decidir.com/api/v2/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
+int timeout = 10; // 10 segundos de timeout
+//Ejemplo para el ambiente Sandbox
+Decidir decidir = new Decidir(privateApiKey, urlSandbox, timeout, grouper, developer);
+String xConsumerUsername = "x-consumer-username";
+
+int timeout = 10; // 10 segundos de timeout
+//Ejemplo para el ambiente Sandbox
+
+Instruction3dsData instruction3dsData = new Instruction3dsData();
+instruction3dsData.setId("id");
+instruction3dsData.setInstruction_value("instruction_value");
+
+try {
+    DecidirResponse<PaymentAuth3dsResponse> paymentResponse = decidir.instructionThreeDS(xConsumerUsername, instruction3dsData);
+
+   PaymentAuth3dsResponse paymentResult = paymentResponse.getResult();
+   // Procesamiento de respuesta de ejecucion de pago
+   // ...codigo...
+} catch (PaymentException | PaymentAuth3dsResponseException pe) {
+   // Manejo de pago rechazado
+   // ...codigo...
+} catch (DecidirException de) {
+   // Manejo de excepcion  de payway
+   // ...codigo...
+} catch (Exception e) {
+   //Manejo de excepcion general
+   // ...codigo...
+}
+ // ...codigo...
+```
+
 <a name="getallpayments"></a>
 
 ### Listado de Pagos
@@ -1212,6 +1442,85 @@ try {
 [<sub>Volver a inicio</sub>](#inicio)
 
 <a name="cybersource"></a>
+
+<a name="tokenizacioninterna"></a>
+## Tokenización Interna
+
+Esta funcionalidad permite que luego de realizar una compra con una tarjeta, se genere un token alfanumerico unico en el backend de Payway, esto permite que a la hora de comprar nuevamente con esta tarjeta solo requerira el codigo de seguridad.
+Como primer paso se debe realizar una un pago normal, el token generado estara en el campo "token" de la respuesta.
+
+<a name="tokenizacioninternaobtenertoken"></a>
+### Obtener el Token
+
+Permite obtener el token.
+
+```java
+String apikey = "YKcWXjI2aoSnp60urwLd6TbLYNuybcWC";
+CardDataRequestModel cardDataRequestModel = new CardDataRequestModel();
+cardDataRequestModel.setCard_number("4507990000004905");
+cardDataRequestModel.setExpiration_date("1250");
+cardDataRequestModel.setCard_holder("Jorge Jorgelin");
+cardDataRequestModel.setSecurity_code("123");
+cardDataRequestModel.setAccount_number("12345678901234567890");
+cardDataRequestModel.setEmail_holder("asd@medina.com");
+
+InternalTokenRequest internalTokenRequest = new InternalTokenRequest();
+internalTokenRequest.setCard_data(cardDataRequestModel);
+internalTokenRequest.setEstablishment_number("11223344");
+try {
+    return new ResponseEntity<>(internalTokenService.tokens(apikey, internalTokenRequest), HttpStatus.OK);
+}
+catch (InternalTokenException e) {
+    logger.error(e.getMessage());
+    return new ResponseEntity<>(e.getResponse(), HttpStatus.valueOf(e.getStatus()));
+}
+catch (Exception e) {
+    logger.error(e.getMessage());
+    return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+}
+```
+
+[<sub>Volver a inicio</sub>](#inicio)
+
+<a name="tokenizacioninternapagar"></a>
+### Pagar
+
+Una vez que se obtiene el token a partir de la tarjeta tokenizada, se deberá ejecutar la solicitud de pago. Además del token de pago y los parámetros propios de la transacción, el comercio deberá identificar la compra con el "site_transaction_id" y "user_id"(id
+del Customer).
+
+```java
+String apikey = "YKcWXjI2aoSnp60urwLd6TbLYNuybcWC";
+TransactionDataRequestModel transactionDataRequestModel = new TransactionDataRequestModel();
+transactionDataRequestModel.setMerchant_transaction_id("numero aleatorio");
+transactionDataRequestModel.setPayment_method_id("1");
+transactionDataRequestModel.setAmount("100");
+transactionDataRequestModel.setCurrency("ARS");
+transactionDataRequestModel.setInstallments("1");
+transactionDataRequestModel.setPayment_type("single");
+transactionDataRequestModel.setDescription("tx-tokenizada");
+CustomerDataRequestModel customerDataRequestModel = new CustomerDataRequestModel();
+customerDataRequestModel.setToken_id("66617169-68b1-4040-af8f-3c648d81b8f0");
+customerDataRequestModel.setIdentification_type("dni");
+customerDataRequestModel.setIdentification_number("12312312");
+InternalTokenPaymentRequest internalTokenPaymentRequest = new InternalTokenPaymentRequest();
+internalTokenPaymentRequest.setMerchant_id("11223344");
+internalTokenPaymentRequest.setTransaction_data(transactionDataRequestModel);
+internalTokenPaymentRequest.setCustomer_data(customerDataRequestModel);
+try {
+    return new ResponseEntity<>(internalTokenService.payment(apikey, paymentRequestModel), HttpStatus.OK);
+}
+catch (DecidirException e) {
+    logger.error(e.getMessage());
+    return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(e.getStatus()));
+}
+catch (InternalTokenException e) {
+    logger.error(e.getMessage());
+    return new ResponseEntity<>(e.getResponse(), HttpStatus.valueOf(e.getStatus()));
+}
+```
+
+[<sub>Volver a inicio</sub>](#inicio)
+
 
 ## Integración con Cybersource
 
@@ -1969,6 +2278,65 @@ try {
 ```
 
 [<sub>Volver a inicio</sub>](#inicio)
+
+<a name="linkCheckout"></a>
+### Link Checkout
+
+Este método permite obtener un hash de pago desde el checkout de payway
+
+
+```java
+// ...codigo...
+
+String urlSandbox = "https://developers.decidir.com/api/checkout/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
+//Ejemplo para el ambiente Sandbox
+Decidir decidir = new Decidir("", urlSandbox, timeout, grouper, developer);
+
+CheckoutRequest checkoutRequest = new CheckoutRequest();
+checkoutRequest.setId("1234");
+checkoutRequest.setOrigin_platform("qw121212");
+CheckoutProductModel product = new CheckoutProductModel();
+product.setId(4444);
+product.setVolume(2.0);
+product.setWeight(0.1);
+product.setValue(1000.00);
+product.setDescription("Remera");
+product.setCategoryId(1);
+product.setQuantity(3);
+checkoutRequest.setProducts(product);
+checkoutRequest.setTotal_price(3000.00);
+checkoutRequest.setSite("00097001");
+checkoutRequest.setSuccess_url("http://www.google.com/");
+checkoutRequest.setRedirect_url("https://www.youtube.com/");
+checkoutRequest.setCancel_url("http://www.google.com/");
+checkoutRequest.setNotifications_url("http://192.168.76.14:10005/");
+checkoutRequest.setLife_time("1000");
+checkoutRequest.setTemplate_id("1");
+int[] installments = {1};
+checkoutRequest.setInstallments(installments);
+checkoutRequest.setId_payment_method("credit_card");
+checkoutRequest.setPlan_gobierno(false);
+
+try {
+	return new ResponseEntity<>(checkoutService.checkoutHash("", checkoutRequest), HttpStatus.OK);
+
+}catch (CheckoutException e) {
+        logger.error(e.getMessage());
+        return new ResponseEntity<>(e.getResponse(), HttpStatus.valueOf(e.getStatus()));
+}catch (Exception e) {
+        logger.error(e.getMessage());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+```
+
+[<sub>Volver a inicio</sub>](#inicio)
+
 
 <a name="tablasreferencia"></a>
 

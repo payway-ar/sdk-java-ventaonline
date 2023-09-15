@@ -1,7 +1,10 @@
 package com.decidir.sdk.payments;
 
+import com.decidir.sdk.dto.auth3ds.Auth3dsData;
 import com.decidir.sdk.dto.cybersource.FraudDetectionData;
 import com.decidir.sdk.dto.payments.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,17 +12,21 @@ import java.util.List;
 /**
  * Payment DTO used to communicate with Decidir's Payment Service
  */
+@JsonInclude(Include.NON_NULL)
 public abstract class Payment implements Serializable {
 
 	private Long id = 0L;
 	private Customer customer;
 	private Currency currency;
 	private Long amount;
+	
+	@JsonInclude(Include.NON_DEFAULT)
 	private int installments;
 	private String first_installment_expiration_date;
 	private String site_transaction_id;
 	private String bin;
 	private Integer payment_method_id;
+	private String description;
 	private PaymentType payment_type; // single / distributed
 	private String site_id;
 	private List<SubPayment> sub_payments;
@@ -28,6 +35,10 @@ public abstract class Payment implements Serializable {
 	private Aggregator aggregate_data;
 	private String establishment_name;
 	protected String payment_mode;
+	
+	@JsonInclude(Include.NON_DEFAULT)
+	private boolean cardholder_auth_required;
+	private Auth3dsData auth_3ds_data;
 
 	public Long getId() {
 		return id;
@@ -112,6 +123,10 @@ public abstract class Payment implements Serializable {
 		return payment_method_id;
 	}
 
+	public String getDescription() {return description;}
+
+	public void setDescription(String description) {this.description = description;}
+
 	public void setPayment_method_id(Integer payment_method_id) {
 		this.payment_method_id = payment_method_id;
 	}
@@ -162,5 +177,21 @@ public abstract class Payment implements Serializable {
 
 	protected void setPayment_mode(String payment_mode) {
 		this.payment_mode = payment_mode;
+	}
+
+	public boolean isCardholder_auth_required() {
+		return cardholder_auth_required;
+	}
+
+	public void setCardholder_auth_required(boolean cardholder_auth_required) {
+		this.cardholder_auth_required = cardholder_auth_required;
+	}
+
+	public Auth3dsData getAuth_3ds_data() {
+		return auth_3ds_data;
+	}
+
+	public void setAuth_3ds_data(Auth3dsData auth_3ds_data) {
+		this.auth_3ds_data = auth_3ds_data;
 	}
 }

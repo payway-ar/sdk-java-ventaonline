@@ -1,49 +1,75 @@
 package com.decidir.sdk;
 
 import com.decidir.sdk.configuration.DecidirConfiguration;
-import com.decidir.sdk.dto.*;
+import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.annullment.AnnulRefundResponse;
-import com.decidir.sdk.dto.payments.*;
+import com.decidir.sdk.dto.instruction3ds.Instruction3dsData;
+import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentRequest;
+import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentResponse;
+import com.decidir.sdk.dto.internaltoken.InternalTokenRequest;
+import com.decidir.sdk.dto.internaltoken.InternalTokenResponse;
+import com.decidir.sdk.dto.checkout.CheckoutRequest;
+import com.decidir.sdk.dto.checkout.CheckoutResponse;
+import com.decidir.sdk.dto.payments.Page;
+import com.decidir.sdk.dto.payments.PaymentRequest;
+import com.decidir.sdk.dto.payments.PaymentResponse;
 import com.decidir.sdk.dto.payments.agro.AgroPaymentRequestNoPCI;
 import com.decidir.sdk.dto.payments.agro.AgroPaymentResponse;
 import com.decidir.sdk.dto.payments.bsa.BSAPaymentRequestPCI;
 import com.decidir.sdk.dto.payments.bsa.BSAPaymentResponse;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestNoPCI;
+import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestPCI;
+import com.decidir.sdk.dto.payments.gds.GDSPaymentResponse;
 import com.decidir.sdk.dto.payments.offline.OfflinePayment;
 import com.decidir.sdk.dto.payments.offline.OfflinePaymentRequest;
 import com.decidir.sdk.dto.payments.offline.OfflinePaymentRequestPCI;
 import com.decidir.sdk.dto.payments.offline.OfflinePaymentResponse;
 import com.decidir.sdk.dto.payments.pci.PaymentPciRequest;
 import com.decidir.sdk.dto.payments.pci.PaymentPciTokenRequest;
-import com.decidir.sdk.dto.refunds.*;
+import com.decidir.sdk.dto.payments.threeds.PaymentAuth3dsResponse;
+import com.decidir.sdk.dto.refunds.RefundMPOSPayment;
+import com.decidir.sdk.dto.refunds.RefundPayment;
+import com.decidir.sdk.dto.refunds.RefundPaymentHistoryResponse;
+import com.decidir.sdk.dto.refunds.RefundPaymentResponse;
+import com.decidir.sdk.dto.refunds.RefundSubPaymentRequest;
+import com.decidir.sdk.dto.refunds.RollbackMPOSPayment;
 import com.decidir.sdk.dto.tokens.CardTokens;
 import com.decidir.sdk.dto.tokens.Token;
-import com.decidir.sdk.dto.tokens.TokenCs;
 import com.decidir.sdk.dto.tokens.TokenResponse;
-import com.decidir.sdk.exceptions.responses.AnnulRefundException;
 import com.decidir.sdk.exceptions.DecidirException;
+import com.decidir.sdk.exceptions.InternalTokenException;
+import com.decidir.sdk.exceptions.responses.AnnulRefundException;
+import com.decidir.sdk.exceptions.responses.PaymentAuth3dsResponseException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
 import com.decidir.sdk.exceptions.responses.RefundException;
-import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestPCI;
-import com.decidir.sdk.dto.payments.gds.GDSPaymentResponse;
 import com.decidir.sdk.payments.Payment;
 import com.decidir.sdk.resources.CardTokenApi;
+import com.decidir.sdk.resources.InternalTokenApi;
 import com.decidir.sdk.resources.PaymentApi;
-import com.decidir.sdk.resources.TokenApi;
-import com.decidir.sdk.resources.PaymentTokenResponse;
 import com.decidir.sdk.resources.RefundApi;
-import com.decidir.sdk.services.*;
-
+import com.decidir.sdk.resources.TokenApi;
+import com.decidir.sdk.resources.CheckoutApi;
+import com.decidir.sdk.services.CardTokenService;
+import com.decidir.sdk.services.InternalTokenService;
+import com.decidir.sdk.services.PaymentConfirmService;
+import com.decidir.sdk.services.PaymentsService;
+import com.decidir.sdk.services.RefundsService;
+import com.decidir.sdk.services.TokenService;
+import com.decidir.sdk.services.CheckoutService;
 
 public final class Decidir {
 
 	private static String apiUrl = "https://live.decidir.com/api/v2/";
+	private static String apiUrlInternalToken = "https://live.decidir.com/api/v1/transaction_gateway/";
+	private static String apiUrlCheckout = "https://live.decidir.com/api/checkout";
 	private static Integer timeOut = 79;
 	private PaymentsService paymentsService;
 	private RefundsService refundsService;
 	private CardTokenService cardTokenService;
 	private PaymentConfirmService paymentConfirmService;
 	private TokenService tokenService;
+	private InternalTokenService internalTokenService;
+	private CheckoutService checkoutService;
 
 	/**
 	 * Creates a new instance to communicate with Decidir Api.  
@@ -102,6 +128,8 @@ public final class Decidir {
 	public Decidir(final String secretAccessToken, final String apiUrl, final Integer timeOut, final String grouper, final String developer) {
 		if (apiUrl != null) {
 			this.apiUrl = apiUrl;
+			this.apiUrlInternalToken = apiUrl;
+			this.apiUrlCheckout = apiUrl;
 		}
 		if (timeOut != null) {
 			this.timeOut = timeOut;
@@ -115,7 +143,11 @@ public final class Decidir {
 		this.paymentConfirmService = PaymentConfirmService.getInstance(
 				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, PaymentApi.class, grouper, developer));
 		this.tokenService = TokenService.getInstance(
-				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, TokenApi.class, grouper, developer)); 
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrl, this.timeOut, TokenApi.class, grouper, developer));
+		this.internalTokenService = InternalTokenService.getInstance(
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrlInternalToken, this.timeOut, InternalTokenApi.class, grouper, developer));
+		this.checkoutService = CheckoutService.getInstance(
+				DecidirConfiguration.initRetrofit(secretAccessToken, this.apiUrlCheckout, this.timeOut, CheckoutApi.class, grouper, developer));
 	}
 	
 	/**
@@ -773,8 +805,66 @@ public final class Decidir {
 		return tokenService.token(tokenReq);
 	}
 	
-	public DecidirResponse<TokenResponse> tokenCS (TokenCs tokenCsReq) throws DecidirException {
-		return tokenService.tokenCS(tokenCsReq);
+	/**
+	 * Executes a new payment using a generated payment token with 3DS
+	 * 
+	 * @param payment (cardholder_auth_required must be true)
+	 *            {@link PaymentRequest} request
+	 * @return a {@link DecidirResponse} with the approved {@link Payment}
+	 * @throws PaymentException
+	 *             when the payment was rejected
+	 * @throws DecidirException
+	 *             when an error occurs
+	 * <br>
+	 * <br>
+	 * <strong>Usage example</strong>
+	 * <pre>
+	 * {@code ...
+	 * Decidir decidir = new Decidir("f9c44926d1584f2d9b90e7c1d102cbe0");
+	 * PaymentRequest paymentRequest = new PaymentRequest();
+	 * //Fill payment request data - i.e. see {@link PaymentRequest}
+	 * ...
+	 * try {
+	 *	DecidirResponse<PaymentAuth3dsResponse> paymentResponse = decidir.payment(paymentRequest);
+	 *	//process payment response - see {@link DecidirResponse}
+	 *	...
+	 *	} catch (PaymentException pe) {
+	 *	 //Handle rejected payment - see {@link PaymentException}
+	 *	 ...
+	 *	} catch (DecidirException de) {
+	 *	 //Handle returned api exception - see {@link DecidirException}
+	 *	 ...
+	 *	} catch (Exception e) {
+	 *	 //Handle exception
+	 *	 ...
+	 *	}
+	 *	...
+	 * }
+	 * </pre>
+	 * @see #payment(PaymentPciRequest)
+	 * @see #payment(PaymentPciTokenRequest)
+	 * @see #confirmPayment(Long, Long, String)
+	 * @see #getPayment(Long)
+	 * @see #getPayments(Integer, Integer, String, String)
+	 * @see #refundPayment(Long, RefundPayment, String)
+	 */
+	public DecidirResponse<PaymentAuth3dsResponse> paymentThreeds(PaymentRequest payment) throws PaymentAuth3dsResponseException, DecidirException {
+		return paymentsService.paymentThreeds(payment);
 	}
 
+	public DecidirResponse<PaymentAuth3dsResponse> instructionThreeDS(String xConsumerUsername, Instruction3dsData data) {
+		return paymentsService.sendInstructionThreeDS(xConsumerUsername, data);
+	}
+
+	public DecidirResponse<InternalTokenResponse> internalToken(InternalTokenRequest internalTokenRequestReq) throws InternalTokenException {
+		return internalTokenService.token(internalTokenRequestReq);
+	}
+
+	public DecidirResponse<InternalTokenPaymentResponse> internalTokenPayment(InternalTokenPaymentRequest request)  throws InternalTokenException {
+		return internalTokenService.payment(request);
+	}
+	
+	public DecidirResponse<CheckoutResponse> checkoutHash(CheckoutRequest request){
+		return checkoutService.checkoutHash(request);
+	}
 }

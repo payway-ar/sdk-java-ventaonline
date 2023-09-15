@@ -4,25 +4,45 @@ import java.io.Serializable;
 
 import com.decidir.sdk.dto.Status;
 import com.decidir.sdk.dto.StatusDetails;
-import com.decidir.sdk.dto.payments.card.CardData;
+import com.decidir.sdk.dto.auth3ds.Auth3dsResponse;
+import com.decidir.sdk.dto.cybersource.FraudDetectionDataResponse;
 import com.decidir.sdk.payments.Payment;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * DTO Payment response used to communicate with Decidir's Payment Service 
  */
+@JsonInclude(Include.NON_NULL)
 public class PaymentResponse extends Payment implements Serializable {
 
-	private String token;
 	private String date;
 	private String date_created;
 	private String date_approved;
 	private String date_last_updated;
 	private Status status;
 	private StatusDetails status_details;
+	@JsonInclude(Include.ALWAYS)
 	private ConfirmedPaymentData confirmed;
+	@JsonInclude(Include.ALWAYS)
 	private String pan;
+	@JsonInclude(Include.ALWAYS)
 	private String customer_token;
-	private CardData card_data;
+	private Auth3dsResponse auth_3ds_response;
+	private String card_brand;
+	@JsonInclude(Include.ALWAYS)
+	private Customer customer;
+	@JsonInclude(Include.ALWAYS)
+	private String first_installment_expiration_date;
+	@JsonInclude(Include.ALWAYS)
+	private FraudDetectionDataResponse fraud_detection;
+	@JsonInclude(Include.ALWAYS)
+	private Aggregator aggregate_data;
+	private String establishment_name;
+	@JsonInclude(Include.ALWAYS)
+	private Spv spv;
+	private String token;
+	private Object card_data;
 
 	public String getToken() {
 		return token;
@@ -104,12 +124,52 @@ public class PaymentResponse extends Payment implements Serializable {
 		this.customer_token = customer_token;
 	}
 
-	public CardData getCard_data() {
-		return card_data;
+	public Auth3dsResponse getAuth_3ds_response() {
+		return auth_3ds_response;
 	}
 
-	public void setCard_data(CardData card_data) {
-		this.card_data = card_data;
+	public void setAuth_3ds_response(Auth3dsResponse auth_3ds_response) {
+		this.auth_3ds_response = auth_3ds_response;
 	}
 
+	public Object getCard_data() {return card_data;}
+
+	public void setCard_data(Object card_data) {this.card_data = card_data;}
+
+	public String getCard_brand() {return card_brand;}
+
+	public void setCard_brand(String card_brand) {this.card_brand = card_brand;}
+
+	@Override
+	public Customer getCustomer() {return customer;}
+
+	@Override
+	public void setCustomer(Customer customer) {this.customer = customer;}
+
+	@Override
+	public String getFirst_installment_expiration_date() {return first_installment_expiration_date;}
+
+	@Override
+	public void setFirst_installment_expiration_date(String first_installment_expiration_date) {this.first_installment_expiration_date = first_installment_expiration_date;}
+
+	@Override
+	public FraudDetectionDataResponse getFraud_detection() {return fraud_detection;}
+
+	public void setFraud_detection(FraudDetectionDataResponse fraud_detection) {this.fraud_detection = fraud_detection;}
+
+	@Override
+	public Aggregator getAggregate_data() {return aggregate_data;}
+
+	@Override
+	public void setAggregate_data(Aggregator aggregate_data) {this.aggregate_data = aggregate_data;}
+
+	@Override
+	public String getEstablishment_name() {return establishment_name;}
+
+	@Override
+	public void setEstablishment_name(String establishment_name) {this.establishment_name = establishment_name;}
+
+	public Spv getSpv() {return spv;}
+
+	public void setSpv(Spv spv) {this.spv = spv;}
 }
