@@ -16,7 +16,8 @@ public class CheckoutRequest {
     private int [] installments;
     private String id_payment_method;
     private boolean plan_gobierno;
-	
+	private String public_apikey;
+
     
     public String getId() {
 		return id;
@@ -135,7 +136,8 @@ public class CheckoutRequest {
 	public void setPlan_gobierno(boolean plan_gobierno) {
 		this.plan_gobierno = plan_gobierno;
 	}
-	
-	
+
+	public String getPublic_apikey() { return public_apikey; }
+	public void setPublic_apikey(String public_apikey) { this.public_apikey = public_apikey; }
 
 }
