@@ -30,6 +30,7 @@ Modulo para conexión con gateway de pago Payway
       <!--- + [Transacción PMC](#pagoPMC)(TODO) -->
     + [Ejecución de pago simple con 3ds](#payment-simple-3ds)
     + [Ejecucion de resolucion del challenge](#payment-challenge-3ds)
+    + [Formulario de Pago](#payment-link)
     + [Listado de Pagos](#getallpayments)
     + [Información de un Pago](#getpaymentinfo)
     + [Devoluciones de pagos](#refunds)
@@ -1033,6 +1034,121 @@ try {
 }
  // ...codigo...
 ```
+
+[<sub>Volver a inicio</sub>](#inicio)
+
+<a name="payment-link"></a>
+
+### Formulario de Pago
+
+Este servicio permite integrar en el comercio un formulario de pago. Utiliza el recurso "validate" para obtener un hash a partir de los datos de la operacion, luego este hash sera utilizado al momento de llamar al recurso "form" el cual devolvera el formulario renderizado propio para cada comercio listo para ser utilizado y completar el flujo de pago.
+
+
+![Caso2](docs/img/validate_caso2.png)</br>
+
+
+| Campo                     | Descripción                                                                                   | Obligatorio                      | Restricciones                   | Ejemplo                     |
+|---------------------------|-----------------------------------------------------------------------------------------------|----------------------------------|---------------------------------|-----------------------------|
+| site.id                  | Merchant                                                                                      | Condicional                      | Numérico de 20 dígitos         | id: "12365436"             |
+| site.template.id         | ID de formulario de pago, el ID es único para cada comercio y es generado previamente por Decidir | Sí                              | Numérico de 20 dígitos         |                             |
+| site.transaction_id      | Número de operación                                                                           | Sí                              | Alfanumérico de 40 dígitos     |                             |
+| customer.id              | ID que identifica al usuario                                                                  | No                              | Alfanumérico de 40 dígitos     |                             |
+| customer.email           | Email del cliente. Se envía información del pago                                              | Es requerido si se desea realizar el envío de mails | Alfanumérico de 40 dígitos | email:"user@mail.com"     |
+| payment.amount           | Monto de la compra                                                                            | Sí                              | Numérico                       |                             |
+| payment.currency         | Tipo de moneda                                                                                | No                              | Letras                         |                             |
+| payment.payment_method_id| ID del medio de pago                                                                          | Sí                              | Numérico                       |                             |
+| payment.bin              | Primeros 6 dígitos de la tarjeta                                                              | No                              | Numérico                       |                             |
+| payment.installments     | Cantidad de cuotas                                                                            | Sí                              | Numérico                       |                             |
+| payment.payment_type     | Indica si es simple o distribuida                                                             | Sí                              | Valores posibles: "single", "distributed" |             |
+| payment.sub_payments     | Se utiliza para pagos distribuidos. Informa los subpayments                                   | Es requerido si el pago es distribuido por monto, ya que si es por porcentaje toma los configurados desde Adm Sites (SAC) | NA |                             |
+| success_url              | URL a donde se redireccionará una vez que el usuario finalice la operación desde la página de feedback | Sí                              | Numérico                       |                             |
+| cancel_url               | URL donde se redireccionará si el cliente quiere cancelar el formulario                        | Sí                              | NA                              |                             |
+| redirect_url             | URL en la cual se enviarán los datos de la operación una vez finalizada la misma para que el comercio pueda capturarlos y mostrarlos como lo desee | Sí |                             |                             |
+
+# Ejemplo de integración en Java
+
+### Para esta función es necesario enviar junto al **public key**, **private key**, y el **form_key**.
+
+```java
+/****************  VALIDATE *******************/
+ValidateCustomer validateCustomer = new ValidateCustomer();
+validateCustomer.email = "user@mail.com";
+validateCustomer.id = "user@mail.com";
+
+SiteInfo site = new SiteInfo();
+TemplateValidate template = new TemplateValidate();
+template.id = 5;
+site.transaction_id = "1";
+site.template = template;
+
+ValidateData validateData = new ValidateData();
+validateData.site = site;
+validateData.customer = validateCustomer;
+
+ValidatePayment validatePayment = new ValidatePayment();
+validatePayment.amount = 500;
+validatePayment.currency = "ARS";
+validatePayment.payment_method_id = 1;
+validatePayment.bin = "45979";
+validatePayment.installments = 4;
+validatePayment.payment_type = "single";
+validatePayment.sub_payments = new ArrayList<>();
+
+validateData.payment = validatePayment;
+
+validateData.success_url = "https://shop.swatch.com/es_ar/";
+validateData.redirect_url = null;  // Si success_url está vacío, redirect_url es requerido.
+validateData.cancel_url = "https://swatch.com/api/result";
+
+// En este ejemplo se utiliza el vertical Travel el cual debe ser completado con sus respectivos campos.
+TravelFraudDetection travel = new TravelFraudDetection();
+validateData.fraud_detection = travel;
+
+String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";
+String publicApiKey = "e9cdb99fff374b5f91da4480c8dca741";
+String validateApiKey = "5cde7e72ea1e430db94d436543523744";
+String merchant = "00020621";
+
+// Para el ambiente de desarrollo.
+DecidirConnector decidir = new DecidirConnector(Ambiente.AMBIENTE_SANDBOX, privateApiKey, publicApiKey, validateApiKey, merchant);
+
+// Ejecución del servicio Validate.
+ValidateResponse validateResponse = decidir.Validate(validateData);
+
+```
+
+#### Respuesta servicio validate
+
+```C#
+
+{
+"statusCode":201,
+"hash":"a1652d02-ba6e-427e-833f-b686efeed29f"
+}
+
+```
+
+### Formulario Renderizado
+
+Utiliza el siguiente enlace para generar dinámicamente un formulario a partir de un hash específico:
+
+- Ambiente Developers (Sandbox) ->  *https://developers.decidir.com/web/forms/4daa07cf-40b8-42ba-b2af-38c26ada763f?apikey=9pX3bRdGqZfV7JhY6Nk2L1oM4sT5wI8e*
+- Ambiente Productivo -> *https://ventasonline.payway.com.ar/web/forms/83bbf463-950f-4af4-9a0c-eb651cef0cp4?apikey=9pX3bRdGqZfV7JhY6Nk2L1oM4sT5wI8e*
+
+⚠️  **A tener en cuenta:** Cada ambiente tiene su propia API key (ya sea para desarrollo o producción) y estas no deben usarse fuera de su respectivo ambiente. ⚠️
+
+**Composición:**
+
+*https:{ruta-ambiente-payway}/web/forms/{hash-generado}?apikey={apikey-publica}*
+
+Este enlace compone la URL para acceder al formulario, donde `{hash}` es el hash que tuvimos como respuesta y sirve para renderizar el formulario y `{apikey-publica}` es la clave pública requerida para la autenticación.
+
+Este enlace te llevará al formulario específico basado en el hash generado.
+
+
+![Formulario de pago](docs/img/form_renderizado.png)</br>
+
+[<sub>Volver a inicio</sub>](#inicio)
 
 <a name="getallpayments"></a>
 
