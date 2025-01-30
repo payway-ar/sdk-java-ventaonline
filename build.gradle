@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: "maven-publish"
 apply plugin: 'eclipse'
 apply plugin: "maven"
-version = '2.7.7'
+version = '2.7.9'
 group = 'com.decidir.api'
 
 sourceCompatibility = 1.7
@@ -40,11 +40,10 @@ repositories {
 }
 
 dependencies {
-  compile "com.squareup.retrofit2:retrofit:2.3.0"
-  compile "com.squareup.retrofit2:converter-jackson:2.3.0"
-  
-  compile 'com.google.code.gson:gson:2.8.9'
-
+    compile 'com.squareup.retrofit2:retrofit:2.11.0'
+    compile "com.squareup.retrofit2:converter-jackson:2.11.0"
+    compile 'com.squareup.okio:okio:3.10.2'
+    compile 'com.google.code.gson:gson:2.8.9'
 }
 
 publishing {
