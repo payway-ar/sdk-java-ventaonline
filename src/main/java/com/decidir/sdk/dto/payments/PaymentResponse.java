@@ -43,6 +43,15 @@ public class PaymentResponse extends Payment implements Serializable {
 	private Spv spv;
 	private String token;
 	private Object card_data;
+	private String tid;
+
+	public String getTid() {
+		return tid;
+	}
+
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
 
 	public String getToken() {
 		return token;
