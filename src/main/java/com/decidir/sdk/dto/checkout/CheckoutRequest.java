@@ -4,8 +4,8 @@ public class CheckoutRequest {
     private String id;
     private String origin_platform;
     private String payment_description;
-    private CheckoutProductModel [] products;
-	private double total_price;
+    private CheckoutProductModel[] products;
+    private double total_price;
     private String site;
     private String success_url;
     private String redirect_url;
@@ -13,11 +13,12 @@ public class CheckoutRequest {
     private String notifications_url;
     private String life_time;
     private String template_id;
-    private int [] installments;
+    private int[] installments;
     private String id_payment_method;
     private boolean plan_gobierno;
-	
-    
+    private String public_apikey;
+
+
     public String getId() {
 		return id;
 	}
@@ -47,8 +48,7 @@ public class CheckoutRequest {
 	public void setProducts(CheckoutProductModel[] products) {
 		this.products = products;
 	}
-		
-		
+
 	public double getTotal_price() {
 		return total_price;
 	}
@@ -136,6 +136,12 @@ public class CheckoutRequest {
 		this.plan_gobierno = plan_gobierno;
 	}
 	
-	
+    public String getPublic_apikey() {
+        return public_apikey;
+    }
+
+    public void setPublic_apikey(String public_apikey) {
+        this.public_apikey = public_apikey;
+    }
 
 }

@@ -4,15 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/**
- * Created by ezequiel on 21/6/16.
- */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Currency {
 
-    ARS("ars");
+    ARS("ars"),
+    USD("usd");
 
-    private String  currencyId;
+    private String currencyId;
 
     private Currency(final String currencyId) {
         this.currencyId = currencyId;
@@ -20,13 +18,17 @@ public enum Currency {
 
     @JsonCreator
     public static Currency forValue(String value) {
+        for (Currency currency : Currency.values()) {
+            if (currency.currencyId.equalsIgnoreCase(value)) {
+                return currency;
+            }
+        }
 
-        return Currency.ARS;
+        return null;
     }
 
     @JsonValue
     public String toValue() {
-
-        return Currency.ARS.name();
+        return this.currencyId;
     }
 }
