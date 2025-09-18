@@ -29,6 +29,6 @@ public enum Currency {
 
     @JsonValue
     public String toValue() {
-        return this.currencyId;
+        return this.name();
     }
 }
