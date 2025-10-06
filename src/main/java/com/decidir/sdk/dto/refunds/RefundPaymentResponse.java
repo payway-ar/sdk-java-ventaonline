@@ -18,6 +18,7 @@ public class RefundPaymentResponse implements Serializable {
     private List<RefundSubPaymentResponse> sub_payments;
     private Status status;
     private StatusDetails status_details;
+    private String tid;
 
     public Long getId() {
         return id;
@@ -62,4 +63,12 @@ public class RefundPaymentResponse implements Serializable {
     public StatusDetails getStatus_details() {return status_details;}
 
     public void setStatus_details(StatusDetails status_details) {this.status_details = status_details;}
+
+	public String getTid() {
+		return tid;
+	}
+
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
 }

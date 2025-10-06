@@ -15,6 +15,11 @@ public class Aggregator implements Serializable {
 	private String category;
 	private String channel;
 	private String geographic_code;
+    private String product;
+    private String origin_country;
+    private String merchant_url;
+    private String aggregator_name;
+    private String gateway_id;
 	private String city;
 	private String merchant_id;
 	private String province;
@@ -110,6 +115,46 @@ public class Aggregator implements Serializable {
 	public void setGeographic_code(String geographic_code) {
 		this.geographic_code = geographic_code;
 	}
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getOrigin_country() {
+        return origin_country;
+    }
+
+    public void setOrigin_country(String origin_country) {
+        this.origin_country = origin_country;
+    }
+
+    public String getMerchant_url() {
+        return merchant_url;
+    }
+
+    public void setMerchant_url(String merchant_url) {
+        this.merchant_url = merchant_url;
+    }
+
+    public String getAggregator_name() {
+        return aggregator_name;
+    }
+
+    public void setAggregator_name(String aggregator_name) {
+        this.aggregator_name = aggregator_name;
+    }
+
+    public String getGateway_id() {
+        return gateway_id;
+    }
+
+    public void setGateway_id(String gateway_id) {
+        this.gateway_id = gateway_id;
+    }
 
 	public String getCity() {
 		return city;

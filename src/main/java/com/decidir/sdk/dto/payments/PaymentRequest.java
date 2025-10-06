@@ -3,6 +3,8 @@ package com.decidir.sdk.dto.payments;
 import com.decidir.sdk.dto.cybersource.FraudDetectionDataRequest;
 import com.decidir.sdk.payments.Payment;
 
+import java.util.List;
+
 /**
  * DTO Payment no PCI used to communicate with Decidir's Payment Service 
  * <br>
@@ -33,6 +35,7 @@ public class PaymentRequest extends Payment {
 
 	private String token;
 	private Spv spv;
+    private List<SubPayment> sub_payments;
 
 	public String getToken() {
 		return token;
@@ -42,4 +45,12 @@ public class PaymentRequest extends Payment {
 	}
 	public Spv getSpv() {return spv;}
 	public void setSpv(Spv spv) {this.spv = spv;}
+
+    public List<SubPayment> getSub_payments() {
+        return sub_payments;
+    }
+
+    public void setSub_payments(List<SubPayment> sub_payments) {
+        this.sub_payments = sub_payments;
+    }
 }
