@@ -2550,7 +2550,7 @@ Estos códigos de Errores son los status en las Excepciones.
 [<sub>Volver a inicio</sub>](#inicio)
 
 ### Campo TID (Transaction ID)
-Es un identificador único de una transacción que permita vincular una compra con una liquidación o una compra con un contracargo.
+Es un identificador único de una transacción que permite vincular una compra con una liquidación o una compra con un contracargo.
 
 Para las marcas Visa, Mastercard y American Express, es posible obtener un identificador llamado Transaction ID (de acá en más TID) como respuesta de una autorización o devolución.
 
@@ -2657,3 +2657,4 @@ Solo se retorna en transacciones aprobadas por las marcas.
 }
 ```
 [<sub>Volver a inicio</sub>](#inicio)
+
