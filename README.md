@@ -2474,30 +2474,30 @@ la distribución de pagos se realiza estáticamente.
 ##### Parámetros para pagos de Comercios Agregadores.
 
 
-| Campo                 | Definición                                                                            |Obligatorio(SI/NO)    | Validación                                                                            | Ejemplo                                 |
-|:----------------------|:--------------------------------------------------------------------------------------|:---------------------|:--------------------------------------------------------------------------------------|:----------------------------------------|
-| indicator             | Indicador del tipo de documento                                                       |SI                    | Numérico, 1 dígito.</br>Valores posibles: 0 CUIT, 1 CUIL, 2 Número único              | "indicator" : "0"                       |
-| identification_number | Numero de CUIT, CUIL o Numero Único (en este caso completar con ceros a la izquierda) |SI                    | Caracter, 11 posiciones                                                               | "identification_number" : "20380902325" |
-| bill_to_pay           | Numero de Factura a Pagar                                                             |SI (Visa), NO (Master)| Alfanumérico 12 caracteres.                                                           | "bill_to_pay" : "1234km1"               |
-| bill_to_refund        | Número de factura de anulación/Devolución                                             |SI (Visa), NO (Master)| Alfanumérico 12 caracteres.                                                           | "bill_to_refund" : "1234567m90120"      |
-| merchant_name         | Nombre de comercio o nombre y apellido del vendedor                                   |SI (Visa), NO (Master)| Alfanumérico 20 caracteres. En caso de nombre y apellido, deben estar separados por / | "merchant_name" : "dario/gomez"         |
-| street                | Dirección del comercio o del vendedor                                                 |SI (Visa), NO (Master)| Alfanumérico 20 caracteres.                                                           | "street" : "Jose Maria"                 |
-| number                | Número de puerta                                                                      |SI (Visa), NO (Master)| Alfanumérico 6 caracteres.                                                            | "number" : "9898"                       |
-| postal_code           | Código postal                                                                         |SI (Visa), NO (Master)| Alfanumérico 8 caracteres.                                                            | "postal_code" : "1234"                  |
-| category              | Código de actividad (rubro)                                                           |SI (Visa), NO (Master)| Alfanumérico 5 caracteres.                                                            | "category" : "1234m"                    |
-| channel               | Código de canal                                                                       |SI (Visa), NO (Master)| Alfanumérico 3 caracteres.                                                            | "channel" : "89j"                       |
-| geographic_code       | Código geográfico del vendedor                                                        |SI (Visa), NO (Master)| Alfanumérico 5 caracteres.                                                            | "geographic_code" : "12345"             |
-| city		                | Ciudad del domicilio del comercio vendedor                                            |SI (Amex), NO (Visa / Master)| Alfanumérico 15 caracteres como máximo.                                               | "city" : "C.A.B.A."	                    |
-| merchant_id	          | Identificador único del comercio vendedor                                             |SI (Amex), NO (Visa / Master)| Numérico de 16 dígitos como máximo.                                       	           | "merchant_id" : "12345"     		          |
-| province  	           | Provincia del comercio vendedor                                                       |SI (Amex), NO (Visa / Master)| Caracter 1 posición. [<sub>Valores posibles</sub>](#provincias)                       | "province" : "C"                        |
-| country     	         | País del comercio vendedor	                                                           |SI (Amex), NO (Visa / Master)| Numérico de 3 caracteres. </br> "032" para Argentina                                  | "country" : "032"                       |
-| merchant_email        | Email del comercio vendedor                                                           |SI (Amex), NO (Visa / Master)| Alfanumérico 40 caracteres como máximo.                                               | "merchant_email" : "com@decidir.com"    |
-| merchant_phone        | Teléfono del comercio vendedor                                                        |SI (Amex), NO (Visa / Master)| Numérico 20 caracteres como máximo.                                                   | "merchant_phone" : "48021111"           |
-| product               | Producto que vende, en caso de no contar con el dato completar con espacios           |SI (Amex), NO (Visa / Master)| Alfanumérico 20 caracteres.                                                           | "product" : "producto_x"                |
-| origin_country        | País de origen del comerciante                                                        |SI (Amex), NO (Visa / Master)| Numérico de 3 dígitos.                                                                | "origin_country" : "032"                |
-| merchant_url          | URL del Submerchant, en caso de no contar con la información enviar espacios          |SI (Amex), NO (Visa / Master)| Alfanumérico de 50 caracteres.                                                        | "merchant_url" : "https://merchant-url" |
-| aggregator_name       | Nombre o datos de vendedor                                                            |SI (Amex), NO (Visa / Master)| Alfanumérico de 25 caracteres.                                                        | "aggregator_name" : "payfact"           |
-| gateway_id            | ID Gateway                                                                            |SI (Amex), NO (Visa / Master)| Alfanumérico de 11 caracteres.                                                        | "gateway_id" : "payway"                 |
+| Campo                 | Definición                                                                            | Obligatorio(SI/NO)            | Validación                                                                            | Ejemplo                                 |
+|:----------------------|:--------------------------------------------------------------------------------------|:------------------------------|:--------------------------------------------------------------------------------------|:----------------------------------------|
+| indicator             | Indicador del tipo de documento                                                       | SI                            | Numérico, 1 dígito.</br>Valores posibles: 0 CUIT, 1 CUIL, 2 Número único              | "indicator" : "0"                       |
+| identification_number | Numero de CUIT, CUIL o Numero Único (en este caso completar con ceros a la izquierda) | SI                            | Caracter, 11 posiciones                                                               | "identification_number" : "20380902325" |
+| bill_to_pay           | Numero de Factura a Pagar                                                             | SI (Visa), NO (Master)        | Alfanumérico 12 caracteres.                                                           | "bill_to_pay" : "1234km1"               |
+| bill_to_refund        | Número de factura de anulación/Devolución                                             | SI (Visa), NO (Master)        | Alfanumérico 12 caracteres.                                                           | "bill_to_refund" : "1234567m90120"      |
+| merchant_name         | Nombre de comercio o nombre y apellido del vendedor                                   | SI (Visa), NO (Master)        | Alfanumérico 20 caracteres. En caso de nombre y apellido, deben estar separados por / | "merchant_name" : "dario/gomez"         |
+| street                | Dirección del comercio o del vendedor                                                 | SI (Visa), NO (Master)        | Alfanumérico 20 caracteres.                                                           | "street" : "Jose Maria"                 |
+| number                | Número de puerta                                                                      | SI (Visa), NO (Master)        | Alfanumérico 6 caracteres.                                                            | "number" : "9898"                       |
+| postal_code           | Código postal                                                                         | SI (Visa), NO (Master)        | Alfanumérico 8 caracteres.                                                            | "postal_code" : "1234"                  |
+| category              | Código de actividad (rubro)                                                           | SI (Visa), NO (Master)        | Alfanumérico 5 caracteres.                                                            | "category" : "1234m"                    |
+| channel               | Código de canal                                                                       | SI (Visa), NO (Master)        | Alfanumérico 3 caracteres.                                                            | "channel" : "89j"                       |
+| geographic_code       | Código geográfico del vendedor                                                        | SI (Visa), NO (Master)        | Alfanumérico 5 caracteres.                                                            | "geographic_code" : "12345"             |
+| city		             | Ciudad del domicilio del comercio vendedor                                            | SI (Amex), NO (Visa / Master) | Alfanumérico 15 caracteres como máximo.                                               | "city" : "C.A.B.A."	                    |
+| merchant_id	         | Identificador único del comercio vendedor                                             | SI (Amex), NO (Visa / Master) | Numérico de 16 dígitos como máximo.                                       	           | "merchant_id" : "12345"     		          |
+| province  	         | Provincia del comercio vendedor                                                       | SI (Amex), NO (Visa / Master) | Caracter 1 posición. [<sub>Valores posibles</sub>](#provincias)                       | "province" : "C"                        |
+| country     	         | País del comercio vendedor	                                                         | SI (Amex), NO (Visa / Master) | Numérico de 3 caracteres. </br> "032" para Argentina                                  | "country" : "032"                       |
+| merchant_email        | Email del comercio vendedor                                                           | SI (Amex), NO (Visa / Master) | Alfanumérico 40 caracteres como máximo.                                               | "merchant_email" : "com@decidir.com"    |
+| merchant_phone        | Teléfono del comercio vendedor                                                        | SI (Amex), NO (Visa / Master) | Numérico 20 caracteres como máximo.                                                   | "merchant_phone" : "48021111"           |
+| product               | Producto que vende, en caso de no contar con el dato completar con espacios           | NO                            | Alfanumérico 20 caracteres.                                                           | "product" : "producto_x"                |
+| origin_country        | País de origen del comerciante                                                        | SI                            | Numérico de 3 dígitos.                                                                | "origin_country" : "032"                |
+| merchant_url          | URL del Submerchant, en caso de no contar con la información enviar espacios          | NO                            | Alfanumérico de 100 caracteres.                                                       | "merchant_url" : "https://merchant-url" |
+| aggregator_name       | Nombre o datos de vendedor                                                            | SI                            | Alfanumérico de 25 caracteres.                                                        | "aggregator_name" : "payfact"           |
+| gateway_id            | ID Gateway                                                                            | SI (Master), NO (Visa / Amex) | Alfanumérico de 11 caracteres.                                                        | "gateway_id" : "payway"                 |
 
 [<sub>Volver a inicio</sub>](#inicio)
 
@@ -2547,4 +2547,113 @@ Estos códigos de Errores son los status en las Excepciones.
 |404         |not_found_error        |Error con datos no encontrados                  |
 |409         |api_error              |Error inesperado en la API REST                 |
 
+[<sub>Volver a inicio</sub>](#inicio)
+
+### Campo TID (Transaction ID)
+Es un identificador único de una transacción que permita vincular una compra con una liquidación o una compra con un contracargo.
+
+Para las marcas Visa, Mastercard y American Express, es posible obtener un identificador llamado Transaction ID (de acá en más TID) como respuesta de una autorización o devolución.
+
+Se informa el TID en la respuesta de Pago Simple, Pago Distribuido, Pre Autorizado y sus devoluciones.
+Solo se retorna en transacciones aprobadas por las marcas.
+
+#### Ejemplo de respuesta para una transacción simple:
+```json
+{
+    "id": 971344,
+    "site_transaction_id": "SINGLE_1527712473",
+    "payment_method_id": 1,
+    "card_brand": "Visa",
+    "amount": 2000,
+    "currency": "ars",
+    "status": "approved",
+    "status_details": {
+        "ticket": "4",
+        "card_authorization_code": "203430",
+        "address_validation_code": "VTE0011",
+        "error": null
+    },
+    "date": "2025-03-30T00:00Z",
+    "customer": {
+        "id": "juan",
+        "email": "jmejia@prismamp.com",
+	"ip_address": "192.168.0.1"
+    },
+    "bin": "373953",
+    "installments": 1,
+    "first_installment_expiration_date": null,
+    "payment_type": "single",
+    "sub_payments": [],
+    "site_id": "00020220",
+    "fraud_detection": {
+        "status": null
+    },
+    "establishment_name": null,
+    "spv": null,
+    "confirmed": null,
+    "pan": null,
+    "customer_token": "23e560af28e73b3c001f465d5d54c15ee1f34826744a4ddf68dc6b469dc604f5",
+    "card_data": "/tokens/971344",
+    "tid": "364656548412345"
+}
+```
+#### Ejemplo de respuesta para una transacción distribuida:
+```json
+{
+  "id": 971255,
+  "site_transaction_id": "DISTRIBUTED_1527712473",
+  "payment_method_id": 1,
+  "card_brand": "Visa",
+  "amount": 2000,
+  "currency": "ars",
+  "status": "approved",
+  "status_details": {
+    "ticket": "4",
+    "card_authorization_code": "203430",
+    "address_validation_code": "VTE0011",
+    "error": null
+  },
+  "date": "2025-03-30T00:00Z",
+  "customer": {
+    "id": "juan",
+    "email": "jmejia@prismamp.com",
+    "ip_address": "192.168.0.1"
+  },
+  "bin": "373953",
+  "installments": 1,
+  "first_installment_expiration_date": null,
+  "payment_type": "distributed",
+  "sub_payments": [
+    {
+      "site_id": "04052023",
+      "installments": 1,
+      "amount": 1000,
+      "ticket": "211",
+      "card_authorization_code": "058205",
+      "subpayment_id": 1265395,
+      "tid": "234567891234567"
+    },
+    {
+      "site_id": "00009007",
+      "installments": 1,
+      "amount": 1000,
+      "ticket": "626",
+      "card_authorization_code": "048246",
+      "subpayment_id": 1265394,
+      "tid": "345678912345678"
+    }
+  ],
+  "site_id": "00020220",
+  "fraud_detection": {
+    "status": null
+  },
+  "establishment_name": null,
+  "spv": null,
+  "confirmed": null,
+  "pan": null,
+  "customer_token": "23e560a3b3c001f465d5d55ee1f3542c468712744a4ddf68dc6b469dc604f5",
+  "card_data": "/tokens/971255",
+  "tid": "123456789123456"
+}
+```
 [<sub>Volver a inicio</sub>](#inicio)
