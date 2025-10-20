@@ -1,6 +1,7 @@
 package com.decidir.sdk.dto.payments;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.decidir.sdk.dto.Status;
 import com.decidir.sdk.dto.StatusDetails;
@@ -36,13 +37,24 @@ public class PaymentResponse extends Payment implements Serializable {
 	private String first_installment_expiration_date;
 	@JsonInclude(Include.ALWAYS)
 	private FraudDetectionDataResponse fraud_detection;
+    @JsonInclude(Include.ALWAYS)
+    private List<SubPaymentResponse> sub_payments;
 	@JsonInclude(Include.ALWAYS)
-	private Aggregator aggregate_data;
+	private AggregatorResponse aggregate_data;
 	private String establishment_name;
 	@JsonInclude(Include.ALWAYS)
 	private Spv spv;
 	private String token;
 	private Object card_data;
+	private String tid;
+
+	public String getTid() {
+		return tid;
+	}
+
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
 
 	public String getToken() {
 		return token;
@@ -152,16 +164,22 @@ public class PaymentResponse extends Payment implements Serializable {
 	@Override
 	public void setFirst_installment_expiration_date(String first_installment_expiration_date) {this.first_installment_expiration_date = first_installment_expiration_date;}
 
+    public List<SubPaymentResponse> getSub_payments() {
+        return sub_payments;
+    }
+
+    public void setSub_payments(List<SubPaymentResponse> sub_payments) {
+        this.sub_payments = sub_payments;
+    }
+
 	@Override
 	public FraudDetectionDataResponse getFraud_detection() {return fraud_detection;}
 
 	public void setFraud_detection(FraudDetectionDataResponse fraud_detection) {this.fraud_detection = fraud_detection;}
 
-	@Override
-	public Aggregator getAggregate_data() {return aggregate_data;}
+	public AggregatorResponse getAggregate_data() {return aggregate_data;}
 
-	@Override
-	public void setAggregate_data(Aggregator aggregate_data) {this.aggregate_data = aggregate_data;}
+	public void setAggregate_data(AggregatorResponse aggregate_data) {this.aggregate_data = aggregate_data;}
 
 	@Override
 	public String getEstablishment_name() {return establishment_name;}

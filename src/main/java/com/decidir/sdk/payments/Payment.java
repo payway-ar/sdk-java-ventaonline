@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Payment DTO used to communicate with Decidir's Payment Service
@@ -29,7 +28,6 @@ public abstract class Payment implements Serializable {
 	private String description;
 	private PaymentType payment_type; // single / distributed
 	private String site_id;
-	private List<SubPayment> sub_payments;
 	private FraudDetectionData fraud_detection;
 	private String plan_id;
 	private Aggregator aggregate_data;
@@ -93,14 +91,6 @@ public abstract class Payment implements Serializable {
 
 	public void setPayment_type(PaymentType payment_type) {
 		this.payment_type = payment_type;
-	}
-
-	public List<SubPayment> getSub_payments() {
-		return sub_payments;
-	}
-
-	public void setSub_payments(List<SubPayment> sub_payments) {
-		this.sub_payments = sub_payments;
 	}
 
 	public String getSite_transaction_id() {

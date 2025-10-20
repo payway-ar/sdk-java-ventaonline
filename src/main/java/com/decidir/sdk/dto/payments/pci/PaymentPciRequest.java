@@ -5,6 +5,8 @@ import com.decidir.sdk.dto.payments.SubPayment;
 import com.decidir.sdk.dto.cybersource.FraudDetectionDataRequest;
 import com.decidir.sdk.payments.Payment;
 
+import java.util.List;
+
 /**
  * DTO Payment PCI with card data used to communicate with Decidir's Payment Service 
  * <br>
@@ -47,6 +49,7 @@ public class PaymentPciRequest extends Payment {
 	public void setCard_data(CardData card_data) { this.card_data = card_data; }
 	public Boolean getIs_tokenized_payment() { return is_tokenized_payment; }
 	public CardTokenData getToken_card_data() {return token_card_data;}
+    private List<SubPayment> sub_payments;
 
 
 	//is_tokenized_payment Indicates if the transaction is tokenized or not & token_card_data Only if is_tokenized_payment is true
@@ -64,5 +67,13 @@ public class PaymentPciRequest extends Payment {
 		}
 		this.token_card_data = token_card_data;
 	}
+
+    public List<SubPayment> getSub_payments() {
+        return sub_payments;
+    }
+
+    public void setSub_payments(List<SubPayment> sub_payments) {
+        this.sub_payments = sub_payments;
+    }
 }
 

@@ -4,6 +4,8 @@ import com.decidir.sdk.dto.payments.SubPayment;
 import com.decidir.sdk.dto.cybersource.FraudDetectionDataRequest;
 import com.decidir.sdk.payments.Payment;
 
+import java.util.List;
+
 /**
  * DTO Payment with token data used to communicate with Decidir's Payment Service 
  * 
@@ -35,6 +37,7 @@ import com.decidir.sdk.payments.Payment;
 public class PaymentPciTokenRequest extends Payment {
 
 	private CardTokenData card_token_data;
+    private List<SubPayment> sub_payments;
 
 
 	public CardTokenData getCard_token_data() {
@@ -44,5 +47,12 @@ public class PaymentPciTokenRequest extends Payment {
 	public void setCard_token_data(CardTokenData card_token_data) {
 		this.card_token_data = card_token_data;
 	}
-	
+
+    public List<SubPayment> getSub_payments() {
+        return sub_payments;
+    }
+
+    public void setSub_payments(List<SubPayment> sub_payments) {
+        this.sub_payments = sub_payments;
+    }
 }
