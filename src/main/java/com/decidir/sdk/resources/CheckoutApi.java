@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 
 public interface CheckoutApi {
 	
-	@POST("payments/link")
+	@POST("/link")
 	Call <CheckoutResponse> checkoutHash (@Body CheckoutRequest checkoutReq);
 
 }
