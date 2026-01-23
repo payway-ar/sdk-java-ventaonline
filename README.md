@@ -1,4 +1,4 @@
-<a name="inicio"></a>
+f<a name="inicio"></a>
 Payway SDK Java
 ===============
 
@@ -165,7 +165,7 @@ import com.decidir.sdk.Decidir;
 public class MiClase {
 	String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 	String urlSandbox = "https://developers.decidir.com/api/v2/";
-	String urlProduccion = "https://live.decidir.com/api/v2/";
+	String urlProduccion = "https://ventasonline.payway.com.ar/api/v2/";
 	// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
 	// Gruoper hace referencia al partner que esté consumiendo el servicio
 	String grouper = "";
@@ -2326,6 +2326,9 @@ int[] installments = {1};
 checkoutRequest.setInstallments(installments);
 checkoutRequest.setId_payment_method("credit_card");
 checkoutRequest.setPlan_gobierno(false);
+checkoutRequest.setEstablishment_number(11122233);
+checkoutRequest.setCuit("27182841175");
+checkoutRequest.setCurrency("ARS");
 
 try {
 	return new ResponseEntity<>(checkoutService.checkoutHash("", checkoutRequest), HttpStatus.OK);
@@ -2657,4 +2660,5 @@ Solo se retorna en transacciones aprobadas por las marcas.
 }
 ```
 [<sub>Volver a inicio</sub>](#inicio)
+
 

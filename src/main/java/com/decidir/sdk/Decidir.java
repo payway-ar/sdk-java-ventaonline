@@ -59,9 +59,9 @@ import com.decidir.sdk.services.CheckoutService;
 
 public final class Decidir {
 
-	private static String apiUrl = "https://live.decidir.com/api/v2/";
+	private static String apiUrl = "https://ventasonline.payway.com.ar/api/v2/";
 	private static String apiUrlInternalToken = "https://live.decidir.com/api/v1/transaction_gateway/";
-	private static String apiUrlCheckout = "https://live.decidir.com/api/checkout";
+	private static String apiUrlCheckout = "https://ventasonline.payway.com.ar/api/v1/checkout-payment-button";
 	private static Integer timeOut = 79;
 	private PaymentsService paymentsService;
 	private RefundsService refundsService;
@@ -868,3 +868,4 @@ public final class Decidir {
 		return checkoutService.checkoutHash(request);
 	}
 }
+
