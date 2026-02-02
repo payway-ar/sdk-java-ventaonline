@@ -165,7 +165,7 @@ import com.decidir.sdk.Decidir;
 public class MiClase {
 	String privateApiKey = "92b71cf711ca41f78362a7134f87ff65";//Private API Key habilitada para operar en ambiente Sandbox
 	String urlSandbox = "https://developers.decidir.com/api/v2/";
-	String urlProduccion = "https://live.decidir.com/api/v2/";
+	String urlProduccion = "https://ventasonline.payway.com.ar/api/v2/";
 	// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
 	// Gruoper hace referencia al partner que esté consumiendo el servicio
 	String grouper = "";
@@ -462,7 +462,7 @@ aggregateData.setGeographic_code("C1437");
 aggregateData.setCity("Ciudad de Buenos Aires");
 aggregateData.setMerchant_id("decidir_Agregador");
 aggregateData.setProvince("B");
-aggregateData.setCountry("ARG")
+aggregateData.setCountry("ARG");
 aggregateData.setMerchant_email("qa@decidir.com");
 aggregateData.setMerchant_phone("+541135211111");
 aggregateData.setProduct("producto_x");
@@ -2362,6 +2362,9 @@ int[] installments = {1};
 checkoutRequest.setInstallments(installments);
 checkoutRequest.setId_payment_method("credit_card");
 checkoutRequest.setPlan_gobierno(false);
+checkoutRequest.setEstablishment_number(11122233);
+checkoutRequest.setCuit("27182841175");
+checkoutRequest.setCurrency("ARS");
 
 try {
 	return new ResponseEntity<>(checkoutService.checkoutHash("", checkoutRequest), HttpStatus.OK);
@@ -2387,7 +2390,7 @@ try {
 
 ### Códigos de Medios de pago
 
-[Medios de pago disponibles](https://documentacion-ventasonline.payway.com.ar/docs/gateway/3jw3eiapx1jwu-medios-de-pago#medios-de-pago-disponibles)
+https://decidirv2.api-docs.io/1.0/tablas-de-referencia-e-informacion-para-el-implementador/medios-de-pago-disponibles
 
 1. Visa Debito no acepta devoluciones parciales en ecommerce.
 
