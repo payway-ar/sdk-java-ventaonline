@@ -1,4 +1,4 @@
-f<a name="inicio"></a>
+<a name="inicio"></a>
 Payway SDK Java
 ===============
 
@@ -279,7 +279,6 @@ try {
 }
 // ...codigo...
 ```
-
 <a name="pci"></a>
 
 #### Transacción PCI
@@ -334,6 +333,42 @@ paymentPciRequest.setInstallments(1);
 paymentPciRequest.setPayment_type(PaymentType.SINGLE); //Tipo de pago simple
 List<SubPayment> sub_payments = new ArrayList<SubPayment>(); // Llenar en caso de transaccion distribuida por monto
 paymentPciRequest.setSub_payments(sub_payments); //Debe enviarse una lista vacia
+
+Aggregator aggregateData = new Aggregator();
+aggregateData.setIndicator("1");
+aggregateData.setIdentification_number("30598910045");
+aggregateData.setBill_to_pay("Decidir_Test");
+aggregateData.setBill_to_refund("Decidir_Test");
+aggregateData.setMerchant_name("DECIDIR");
+aggregateData.setStreet("Lavarden");
+aggregateData.setNumber("247");
+aggregateData.setPostal_code("C1437FBE");
+aggregateData.setCategory("05044");
+aggregateData.setChannel("005");
+aggregateData.setGeographic_code("C1437");
+aggregateData.setCity("Ciudad de Buenos Aires");
+aggregateData.setMerchant_id("decidir_Agregador");
+aggregateData.setProvince("B");
+aggregateData.setCountry("ARG")
+aggregateData.setMerchant_email("qa@decidir.com");
+aggregateData.setMerchant_phone("+541135211111");
+aggregateData.setProduct("producto_x");
+aggregateData.setOrigin_country("032");
+aggregateData.setMerchant_url("http://merchant-url");
+aggregateData.setAggregator_name("payfact");
+aggregateData.setGateway_id("payway");
+aggregateData.setSeller_id("SellerId1234567891011");
+
+SubAgrupator subAgrupator = new SubAgrupator();
+subAgrupator.setIndicator("2");
+subAgrupator.setIdentification_number("30598911045");
+subAgrupator.setMerchant_name("PAYWAY");
+subAgrupator.setStreet("La rioja");
+subAgrupator.setCategory("05045");
+
+aggregateData.setSub_agrupator(subAgrupator);
+
+paymentPciRequest.setAggregate_data(aggregateData);
 
 try {
 	DecidirResponse<PaymentResponse> paymentResponse = decidir.payment(paymentRequest);
@@ -426,8 +461,8 @@ aggregateData.setChannel("005");
 aggregateData.setGeographic_code("C1437");
 aggregateData.setCity("Ciudad de Buenos Aires");
 aggregateData.setMerchant_id("decidir_Agregador");
-aggregateData.setProvince("Buenos Aires");
-aggregateData.setCountry("Argentina")
+aggregateData.setProvince("B");
+aggregateData.setCountry("ARG");
 aggregateData.setMerchant_email("qa@decidir.com");
 aggregateData.setMerchant_phone("+541135211111");
 aggregateData.setProduct("producto_x");
@@ -435,6 +470,7 @@ aggregateData.setOrigin_country("032");
 aggregateData.setMerchant_url("http://merchant-url");
 aggregateData.setAggregator_name("payfact");
 aggregateData.setGateway_id("payway");
+aggregateData.setSeller_id("SellerId1234567891011");
 
 SubAgrupator subAgrupator = new SubAgrupator();
 subAgrupator.setIndicator("2");
@@ -704,7 +740,7 @@ Las transacciones BSA no PCI operan de manera idéntica a las [transacciones sim
 
 [<sub>Volver a inicio</sub>](#inicio)
 
-<a name="bsapci"></a>
+<a name="agronopci"></a>
 
 #### Transacción Agro no PCI
 A continuaci&oacute;n se muestra un ejemplo con una transacci&oacute;n Agro simple sin [Cybersource](#cybersource).
@@ -2364,6 +2400,8 @@ https://decidirv2.api-docs.io/1.0/tablas-de-referencia-e-informacion-para-el-imp
 
 ### Divisas Aceptadas
 
+[Medios de pago con Divisas Aceptadas](https://documentacion-ventasonline.payway.com.ar/docs/gateway/3jw3eiapx1jwu-medios-de-pago#divisas-aceptadas)
+
 | Divisa | Descripción | Código API
 ---------|-------------|--------
 | AR$ | Pesos Argentinos | ARS
@@ -2376,6 +2414,8 @@ https://decidirv2.api-docs.io/1.0/tablas-de-referencia-e-informacion-para-el-imp
 <a name="provincias"></a>
 
 ### Provincias
+
+[Códigos de Provincia para Cybersource](https://documentacion-ventasonline.payway.com.ar/docs/gateway/vwd3zic062ibr-manejo-de-errores-cyber-source#c%c3%b3digos-de-provincias-para-cybersource)
 
 | Provincia | Código |
 |----------|-------------|
@@ -2501,6 +2541,7 @@ la distribución de pagos se realiza estáticamente.
 | merchant_url          | URL del Submerchant, en caso de no contar con la información enviar espacios          | NO                            | Alfanumérico de 100 caracteres.                                                       | "merchant_url" : "https://merchant-url" |
 | aggregator_name       | Nombre o datos de vendedor                                                            | SI                            | Alfanumérico de 25 caracteres.                                                        | "aggregator_name" : "payfact"           |
 | gateway_id            | ID Gateway                                                                            | SI (Master), NO (Visa / Amex) | Alfanumérico de 11 caracteres.                                                        | "gateway_id" : "payway"                 |
+| seller_id            | ID Seller                                                                            | SI (Amex) | Alfanumérico de 20 caracteres.                                                        |  "seller_id": "SellerId1234567891011"               |
 
 [<sub>Volver a inicio</sub>](#inicio)
 
