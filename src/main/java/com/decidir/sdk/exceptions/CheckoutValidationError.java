@@ -1,7 +1,6 @@
 package com.decidir.sdk.exceptions;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 public class CheckoutValidationError implements Serializable {

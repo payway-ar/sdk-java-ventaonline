@@ -3,6 +3,8 @@ package com.decidir.sdk;
 import com.decidir.sdk.configuration.DecidirConfiguration;
 import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.annullment.AnnulRefundResponse;
+import com.decidir.sdk.dto.checkout.history.HistoryRequest;
+import com.decidir.sdk.dto.checkout.history.HistoryResponse;
 import com.decidir.sdk.dto.instruction3ds.Instruction3dsData;
 import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentRequest;
 import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentResponse;
@@ -866,6 +868,10 @@ public final class Decidir {
 	
 	public DecidirResponse<CheckoutResponse> checkoutHash(CheckoutRequest request){
 		return checkoutService.checkoutHash(request);
+	}
+
+	public DecidirResponse<HistoryResponse> getHistory(HistoryRequest request){
+		return checkoutService.getHistory(request);
 	}
 }
 
