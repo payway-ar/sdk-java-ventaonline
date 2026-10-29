@@ -1,7 +1,9 @@
 package com.decidir.sdk.dto.payments;
 
 import com.decidir.sdk.dto.cybersource.FraudDetectionDataRequest;
+import com.decidir.sdk.payments.GPayExternalPaymentData;
 import com.decidir.sdk.payments.Payment;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
@@ -37,6 +39,9 @@ public class PaymentRequest extends Payment {
 	private Spv spv;
     private List<SubPayment> sub_payments;
 
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private GPayExternalPaymentData external_payment_data;
+
 	public String getToken() {
 		return token;
 	}
@@ -53,4 +58,12 @@ public class PaymentRequest extends Payment {
     public void setSub_payments(List<SubPayment> sub_payments) {
         this.sub_payments = sub_payments;
     }
+
+	public GPayExternalPaymentData getExternal_payment_data() {
+		return external_payment_data;
+	}
+
+	public void setExternal_payment_data(GPayExternalPaymentData external_payment_data) {
+		this.external_payment_data = external_payment_data;
+	}
 }
