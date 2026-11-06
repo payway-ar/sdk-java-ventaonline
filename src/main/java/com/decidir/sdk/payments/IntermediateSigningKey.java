@@ -6,18 +6,18 @@ import java.util.List;
 public class IntermediateSigningKey {
 
     @JsonProperty("signed_key")
-    private String signedKey;
+    private String signed_key;
 
     @JsonProperty("signatures")
     private List<String> signatures;
 
     // Getters y Setters
     public String getSignedKey() {
-        return signedKey;
+        return signed_key;
     }
 
     public void setSignedKey(String signedKey) {
-        this.signedKey = signedKey;
+        this.signed_key = signedKey;
     }
 
     public List<String> getSignatures() {
