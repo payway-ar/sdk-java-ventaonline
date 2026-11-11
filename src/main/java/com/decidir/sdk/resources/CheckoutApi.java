@@ -4,6 +4,7 @@ import com.decidir.sdk.dto.checkout.CheckoutResponse;
 import com.decidir.sdk.dto.checkout.CheckoutRequest;
 
 import com.decidir.sdk.dto.checkout.history.HistoryResponse;
+import com.decidir.sdk.dto.checkout.transactionHistory.TransactionHistoryResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -33,5 +34,8 @@ public interface CheckoutApi {
 									   @Query("installments")Integer installments,
 									   @Query("payment_method_id")Long paymentMethodId
 										 );
+
+    @GET("transaction/history")
+    Call <TransactionHistoryResponse> getTransactionHistory (@Query("chargeId") String chargeId);
 
 }

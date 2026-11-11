@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.checkout.CheckoutResponse;
 import com.decidir.sdk.dto.checkout.history.HistoryResponse;
+import com.decidir.sdk.dto.checkout.transactionHistory.TransactionHistoryResponse;
 import com.decidir.sdk.exceptions.CheckoutError;
 import com.decidir.sdk.exceptions.CheckoutHistoryError;
 import com.decidir.sdk.exceptions.CheckoutHistoryValidationError;
@@ -29,6 +30,15 @@ public class CheckoutConverter extends DecidirConverter {
 		dResponse.setMessage(response.message());
 		return dResponse;
 	}
+
+    public DecidirResponse<TransactionHistoryResponse> convert(Response<TransactionHistoryResponse> response, TransactionHistoryResponse transactionHistoryResponse) {
+        DecidirResponse<TransactionHistoryResponse> dResponse = new DecidirResponse();
+        dResponse.setStatus(response.code());
+        dResponse.setResult(transactionHistoryResponse);
+        dResponse.setMessage(response.message());
+        return dResponse;
+    }
+
 	 public DecidirResponse<CheckoutError> convert(Response response) throws IOException {
 	        DecidirResponse<CheckoutError> dResponse = new DecidirResponse();
 	        dResponse.setStatus(response.code());

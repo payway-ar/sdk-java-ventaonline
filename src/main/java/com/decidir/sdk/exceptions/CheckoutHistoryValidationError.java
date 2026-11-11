@@ -22,4 +22,12 @@ public class CheckoutHistoryValidationError implements Serializable {
     public void setParam(String param) {
         this.param = param;
     }
+
+    @Override
+    public String toString() {
+        return "CheckoutHistoryValidationError{" +
+                "code='" + code + '\'' +
+                ", param='" + param + '\'' +
+                '}';
+    }
 }

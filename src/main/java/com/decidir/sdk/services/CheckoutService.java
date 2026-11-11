@@ -1,6 +1,7 @@
 package com.decidir.sdk.services;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import com.decidir.sdk.converters.CheckoutConverter;
 import com.decidir.sdk.converters.ErrorConverter;
@@ -9,9 +10,12 @@ import com.decidir.sdk.dto.checkout.CheckoutRequest;
 import com.decidir.sdk.dto.checkout.CheckoutResponse;
 import com.decidir.sdk.dto.checkout.history.HistoryRequest;
 import com.decidir.sdk.dto.checkout.history.HistoryResponse;
+import com.decidir.sdk.dto.checkout.transactionHistory.TransactionHistoryRequest;
+import com.decidir.sdk.dto.checkout.transactionHistory.TransactionHistoryResponse;
 import com.decidir.sdk.exceptions.*;
 import com.decidir.sdk.resources.CheckoutApi;
 
+import com.sun.org.slf4j.internal.LoggerFactory;
 import retrofit2.Response;
 
 public class CheckoutService {
@@ -72,5 +76,26 @@ public class CheckoutService {
 			throw new DecidirException(HTTP_500, ioe.getMessage());
 		}
 	}
+
+    public DecidirResponse<TransactionHistoryResponse> getTransactionHistory(TransactionHistoryRequest request){
+
+        try {
+            Response<TransactionHistoryResponse> response = this.checkoutApi.getTransactionHistory(request.getChargeId()).execute();
+            if (response.isSuccessful()) {
+                return checkoutConverter.convert(response, response.body());
+            }
+
+            if (response.code() == 500) {
+                DecidirResponse<CheckoutHistoryError> error = checkoutConverter.convertCheckoutHistoryError(response);
+                throw new CheckoutHistoryException(error.getStatus(), error.getMessage(), error.getResult());
+            }
+
+            DecidirResponse<CheckoutHistoryValidationError> error = checkoutConverter.convertCheckoutHistoryValidationError(response);
+            throw new CheckoutHistoryValidationException(error.getStatus(), error.getResult().getParam(), error.getResult());
+
+        } catch (IOException ioe) {
+            throw new DecidirException(HTTP_500, ioe.getMessage());
+        }
+    }
 
 }

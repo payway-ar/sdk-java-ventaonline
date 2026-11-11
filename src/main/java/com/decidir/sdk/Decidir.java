@@ -5,6 +5,8 @@ import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.annullment.AnnulRefundResponse;
 import com.decidir.sdk.dto.checkout.history.HistoryRequest;
 import com.decidir.sdk.dto.checkout.history.HistoryResponse;
+import com.decidir.sdk.dto.checkout.transactionHistory.TransactionHistoryRequest;
+import com.decidir.sdk.dto.checkout.transactionHistory.TransactionHistoryResponse;
 import com.decidir.sdk.dto.instruction3ds.Instruction3dsData;
 import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentRequest;
 import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentResponse;
@@ -63,7 +65,7 @@ public final class Decidir {
 
 	private static String apiUrl = "https://ventasonline.payway.com.ar/api/v2/";
 	private static String apiUrlInternalToken = "https://live.decidir.com/api/v1/transaction_gateway/";
-	private static String apiUrlCheckout = "https://ventasonline.payway.com.ar/api/v1/checkout-payment-button/";
+    private static String apiUrlCheckout = "https://ventasonline.payway.com.ar/api/v1/checkout-payment-button/";
 	private static Integer timeOut = 79;
 	private PaymentsService paymentsService;
 	private RefundsService refundsService;
@@ -873,5 +875,10 @@ public final class Decidir {
 	public DecidirResponse<HistoryResponse> getHistory(HistoryRequest request){
 		return checkoutService.getHistory(request);
 	}
+
+    public DecidirResponse<TransactionHistoryResponse> getTransactionHistory(TransactionHistoryRequest request){
+        return checkoutService.getTransactionHistory(request);
+    }
+
 }
 
