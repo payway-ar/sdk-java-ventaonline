@@ -62,6 +62,7 @@ Modulo para conexión con gateway de pago Payway
     + [RefundException](#refundException)
     + [AnnulRefundException](#annulRefundException)
 + [Link Checkout](#linkCheckout)
++ [Historial Link Checkout](#historialLinkCheckout)
 + [Tablas de referencia](#tablasreferencia)
   + [Códigos de Medios de Pago](#codigos-de-medios-de-pago)
   + [Divisas Aceptadas](#divisasa)
@@ -2355,7 +2356,6 @@ checkoutRequest.setSite("00097001");
 checkoutRequest.setSuccess_url("http://www.google.com/");
 checkoutRequest.setRedirect_url("https://www.youtube.com/");
 checkoutRequest.setCancel_url("http://www.google.com/");
-checkoutRequest.setNotifications_url("http://192.168.76.14:10005/");
 checkoutRequest.setLife_time("1000");
 checkoutRequest.setTemplate_id("1");
 int[] installments = {1};
@@ -2381,7 +2381,57 @@ try {
 
 [<sub>Volver a inicio</sub>](#inicio)
 
+<a name="historialLinkCheckout"></a>
+### Historial Link Checkout
 
+Este método permite obtener el historial de los hash de pago generados desde el checkout de payway
+
+Campos obligatorios: se debe enviar (siteId o cuit) y platform.
+
+```java
+// ...codigo...
+
+String urlSandbox = "https://developers-ventasonline.payway.com.ar/api/v1/checkout-payment-button/";
+// Variables para identificar el origen de la transacción, estas mismas pueden ser enviadas vacías.
+// Grouper hace referencia al partner que esté consumiendo el servicio
+String grouper = "";
+// Developer hace referencia al desarrollador que cobra por transacción/otro
+String developer = "";
+//Ejemplo para el ambiente Sandbox
+Decidir decidir = new Decidir("", urlSandbox, timeout, grouper, developer);
+
+
+HistoryRequest historyRequest = new HistoryRequest();
+        historyRequest.setSiteId("93014899");
+        historyRequest.setOperationId("93014899T17920729855522215000339ACA");
+        historyRequest.setStatus("creado");
+        historyRequest.setFromDate("2026-10-14T23:00:00");
+        historyRequest.setToDate("2026-10-15T23:00:00");
+        historyRequest.setPlatform("platform");
+        historyRequest.setPage(0);
+        historyRequest.setItemsPerPage(1);
+        historyRequest.setDescription("description");
+        historyRequest.setCuit("27182841175");
+        historyRequest.setCurrency("ARS");
+        historyRequest.setEstablishmentNumber(0);
+        historyRequest.setMaxAmount(2500.0);
+        historyRequest.setMinAmount(1);
+        historyRequest.setInstallments(1);
+        historyRequest.setPaymentMethodId(31);
+
+
+try {
+    DecidirResponse<HistoryResponse> response = decidir.getHistory(historyRequest);
+    return response.getResult();
+}
+catch (CheckoutHistoryValidationException | CheckoutHistoryException e) {
+    logger.error(e.getMessage());
+    logger.error(String.valueOf(e.getResponse()));
+    throw e;
+}
+```
+
+[<sub>Volver a inicio</sub>](#inicio)
 <a name="tablasreferencia"></a>
 
 ## Tablas de Referencia

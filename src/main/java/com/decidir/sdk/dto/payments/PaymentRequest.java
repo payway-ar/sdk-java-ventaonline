@@ -1,7 +1,9 @@
 package com.decidir.sdk.dto.payments;
 
 import com.decidir.sdk.dto.cybersource.FraudDetectionDataRequest;
+import com.decidir.sdk.payments.GPayExternalPaymentData;
 import com.decidir.sdk.payments.Payment;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 

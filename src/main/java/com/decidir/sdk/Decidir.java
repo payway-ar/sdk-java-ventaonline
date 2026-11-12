@@ -3,6 +3,8 @@ package com.decidir.sdk;
 import com.decidir.sdk.configuration.DecidirConfiguration;
 import com.decidir.sdk.dto.DecidirResponse;
 import com.decidir.sdk.dto.annullment.AnnulRefundResponse;
+import com.decidir.sdk.dto.checkout.history.HistoryRequest;
+import com.decidir.sdk.dto.checkout.history.HistoryResponse;
 import com.decidir.sdk.dto.instruction3ds.Instruction3dsData;
 import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentRequest;
 import com.decidir.sdk.dto.internaltoken.InternalTokenPaymentResponse;
@@ -17,6 +19,7 @@ import com.decidir.sdk.dto.payments.agro.AgroPaymentRequestNoPCI;
 import com.decidir.sdk.dto.payments.agro.AgroPaymentResponse;
 import com.decidir.sdk.dto.payments.bsa.BSAPaymentRequestPCI;
 import com.decidir.sdk.dto.payments.bsa.BSAPaymentResponse;
+import com.decidir.sdk.dto.payments.externalPaymentData.GPayPaymentRequest;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestNoPCI;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestPCI;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentResponse;
@@ -536,6 +539,51 @@ public final class Decidir {
 	}
 
 	/**
+	 * Executes a new payment using external payment data (e.g., Google Pay).
+	 *
+	 * @param payment {@link GPayPaymentRequest} request
+	 * @return a {@link DecidirResponse} with the approved {@link PaymentResponse}
+	 * @throws PaymentException when the payment was rejected
+	 * @throws DecidirException when an error occurs
+	 *
+	 * <br><br>
+	 * <strong>Usage example</strong>
+	 * <pre>
+	 * {@code
+	 * Decidir decidir = new Decidir("f9c44926d1584f2d9b90e7c1d102cbe0");
+	 * ExternalPaymentRequest paymentRequest = new ExternalPaymentRequest();
+	 * // Fill payment request data - i.e. see {@link GPayPaymentRequest}
+	 * // ...
+	 *
+	 * try {
+	 *     DecidirResponse<PaymentResponse> paymentResponse = decidir.payment(paymentRequest);
+	 *     // process payment response - see {@link DecidirResponse}
+	 *     // ...
+	 * } catch (PaymentException pe) {
+	 *     // Handle rejected payment - see {@link PaymentException}
+	 *     // ...
+	 * } catch (DecidirException de) {
+	 *     // Handle returned api exception - see {@link DecidirException}
+	 *     // ...
+	 * } catch (Exception e) {
+	 *     // Handle exception
+	 *     // ...
+	 * }
+	 * }
+	 * </pre>
+	 *
+	 * @see #payment(PaymentRequest)
+	 * @see #payment(PaymentPciRequest)
+	 * @see #confirmPayment(Long, Long, String)
+	 * @see #getPayments(Integer, Integer, String, String)
+	 * @see #getPayment(Long)
+	 * @see #refundPayment(Long, RefundPayment, String)
+	 */
+	public DecidirResponse<PaymentResponse> payment(GPayPaymentRequest payment) throws PaymentException, DecidirException {
+		return paymentsService.paymentGooglePay(payment);
+	}
+
+	/**
 	 * Returns all site paymentes into a paginated list 
 	 * @param offset (optional) index of the first payment to be shown in the list
 	 * @param pageSize	(optional) size of the list to retrieve
@@ -866,6 +914,10 @@ public final class Decidir {
 	
 	public DecidirResponse<CheckoutResponse> checkoutHash(CheckoutRequest request){
 		return checkoutService.checkoutHash(request);
+	}
+
+	public DecidirResponse<HistoryResponse> getHistory(HistoryRequest request){
+		return checkoutService.getHistory(request);
 	}
 }
 

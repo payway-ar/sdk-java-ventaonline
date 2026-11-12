@@ -9,7 +9,6 @@ public class CheckoutRequest {
 	private String success_url;
 	private String redirect_url;
 	private String cancel_url;
-	private String notifications_url;
 	private Integer template_id;
 	private int[] installments;
 	private Integer id_payment_method;
@@ -76,14 +75,6 @@ public class CheckoutRequest {
 	}
 	public void setCancel_url(String cancel_url) {
 		this.cancel_url = cancel_url;
-	}
-
-
-	public String getNotifications_url() {
-		return notifications_url;
-	}
-	public void setNotifications_url(String notifications_url) {
-		this.notifications_url = notifications_url;
 	}
 
 

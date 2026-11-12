@@ -13,6 +13,7 @@ import com.decidir.sdk.dto.payments.agro.AgroPaymentRequestNoPCI;
 import com.decidir.sdk.dto.payments.agro.AgroPaymentResponse;
 import com.decidir.sdk.dto.payments.bsa.BSAPaymentRequestPCI;
 import com.decidir.sdk.dto.payments.bsa.BSAPaymentResponse;
+import com.decidir.sdk.dto.payments.externalPaymentData.GPayPaymentRequest;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestNoPCI;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestPCI;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentResponse;
@@ -24,7 +25,6 @@ import com.decidir.sdk.dto.payments.pci.PaymentPciTokenRequest;
 import com.decidir.sdk.dto.payments.threeds.PaymentAuth3dsResponse;
 import com.decidir.sdk.exceptions.DecidirError;
 import com.decidir.sdk.exceptions.DecidirException;
-import com.decidir.sdk.exceptions.responses.Instruction3dsException;
 import com.decidir.sdk.exceptions.responses.PaymentAuth3dsResponseException;
 import com.decidir.sdk.exceptions.responses.PaymentException;
 import com.decidir.sdk.resources.PaymentApi;
@@ -68,6 +68,15 @@ public class PaymentsService {
 	public DecidirResponse<PaymentResponse> paymentNoPci(PaymentRequest payment) throws PaymentException {
 		try {
 			Response<PaymentResponse> response = this.paymentApi.payNoPci(payment).execute();
+			return paymentConverter.convertOrThrowSpecError(response, PaymentException.class, PaymentResponse.class);
+		} catch (IOException ioe) {
+			throw new DecidirException(HTTP_500, ioe.getMessage());
+		}
+	}
+
+	public DecidirResponse<PaymentResponse> paymentGooglePay(GPayPaymentRequest payment) throws PaymentException {
+		try {
+			Response<PaymentResponse> response = this.paymentApi.payGooglePay(payment).execute();
 			return paymentConverter.convertOrThrowSpecError(response, PaymentException.class, PaymentResponse.class);
 		} catch (IOException ioe) {
 			throw new DecidirException(HTTP_500, ioe.getMessage());
