@@ -9,6 +9,7 @@ import com.decidir.sdk.dto.payments.agro.AgroPaymentRequestNoPCI;
 import com.decidir.sdk.dto.payments.agro.AgroPaymentResponse;
 import com.decidir.sdk.dto.payments.bsa.BSAPaymentRequestPCI;
 import com.decidir.sdk.dto.payments.bsa.BSAPaymentResponse;
+import com.decidir.sdk.dto.payments.externalPaymentData.GPayPaymentRequest;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestNoPCI;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentRequestPCI;
 import com.decidir.sdk.dto.payments.gds.GDSPaymentResponse;
@@ -19,7 +20,6 @@ import com.decidir.sdk.dto.payments.pci.PaymentPciRequest;
 import com.decidir.sdk.dto.payments.pci.PaymentPciTokenRequest;
 import com.decidir.sdk.dto.payments.threeds.PaymentAuth3dsResponse;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -42,6 +42,9 @@ public interface PaymentApi {
 
   @POST("payments")
   Call<PaymentResponse> payNoPci(@Body PaymentRequest payment);
+
+  @POST("payments")
+  Call<PaymentResponse> payGooglePay(@Body GPayPaymentRequest payment);
   
   @POST("payments")
   Call<PaymentAuth3dsResponse> payThreeds(@Body PaymentRequest payment);
