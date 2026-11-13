@@ -1,13 +1,25 @@
-apply plugin: 'idea'
-apply plugin: 'java'
-apply plugin: "maven-publish"
-apply plugin: 'eclipse'
-apply plugin: "maven"
-version = '2.8.0'
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'maven-publish'
+}
+
+version = '2.8.5'
 group = 'com.decidir.api'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+allprojects {
+    apply plugin: 'java'
+    java {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
 
 jar {
     manifest {
@@ -15,43 +27,42 @@ jar {
     }
 }
 
-allprojects {
-    apply plugin: 'java'
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
-}
-
 //create a single Jar with all dependencies
 task releaseJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Java SDK for Payway', 'Implementation-Version': version
     }
-    archiveName 'payway-v'+ version +'-java7.jar'
-    destinationDir project.file('dist')		
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+
+    // CORRECCIONES PARA GRADLE 7+
+    archiveFileName = 'payway-v' + version + '-java7.jar'
+    destinationDirectory = project.file('dist')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Obligatorio en Gradle 7 al combinar librerías
+
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
 repositories {
     mavenCentral()
-
-    // Spock snapshots are available from the Sonatype OSS snapshot repository
-    maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
+        allowInsecureProtocol = true
+    }
 }
 
 dependencies {
-    compile 'com.squareup.retrofit2:retrofit:2.11.0'
-    compile "com.squareup.retrofit2:converter-jackson:2.11.0"
-    compile 'com.squareup.okio:okio:3.10.2'
-    compile 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation "com.squareup.retrofit2:converter-jackson:2.11.0"
+    implementation 'com.squareup.okio:okio:3.10.2'
+    implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 publishing {
     publications {
         mavenJar(MavenPublication) {
-           artifact releaseJar
-           artifactId 'payway-sdk-java7'
-           version project.version
+            artifact releaseJar
+            artifactId = 'payway-sdk-java7'
+            version = project.version
         }
     }
 }
