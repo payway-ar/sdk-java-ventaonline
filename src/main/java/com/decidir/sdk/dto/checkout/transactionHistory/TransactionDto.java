@@ -16,43 +16,106 @@ public class TransactionDto {
     private String rejectionDescription;
     private String tid;
 
-    public String getTransactionId() { return transactionId; }
-    public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
+    public TransactionDto() {}
 
-    public String getStatusId() { return statusId; }
-    public void setStatusId(String statusId) { this.statusId = statusId; }
+    public TransactionDto(String transactionId, String statusId, String createdAt,
+                          String statusDescription, String holderName, String cardNumber,
+                          String paymentMethodId, String rejectionDescription, String tid) {
+        this.transactionId = transactionId;
+        this.statusId = statusId;
+        this.createdAt = createdAt;
+        this.statusDescription = statusDescription;
+        this.holderName = holderName;
+        this.cardNumber = cardNumber;
+        this.paymentMethodId = paymentMethodId;
+        this.rejectionDescription = rejectionDescription;
+        this.tid = tid;
+    }
 
-    public String getCreatedAt() { return createdAt; }
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+    public String getTransactionId() {
+        return transactionId;
+    }
 
-    public String getStatusDescription() { return statusDescription; }
-    public void setStatusDescription(String statusDescription) { this.statusDescription = statusDescription; }
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
 
-    public String getHolderName() { return holderName; }
-    public void setHolderName(String holderName) { this.holderName = holderName; }
+    public String getStatusId() {
+        return statusId;
+    }
 
-    public String getCardNumber() { return cardNumber; }
-    public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
+    }
 
-    public String getPaymentMethodId() { return paymentMethodId; }
-    public void setPaymentMethodId(String paymentMethodId) { this.paymentMethodId = paymentMethodId; }
+    public String getCreatedAt() {
+        return createdAt;
+    }
 
-    public String getRejectionDescription() { return rejectionDescription; }
-    public void setRejectionDescription(String rejectionDescription) { this.rejectionDescription = rejectionDescription; }
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
-    public String getTid() { return tid; }
-    public void setTid(String tid) { this.tid = tid; }
+    public String getStatusDescription() {
+        return statusDescription;
+    }
+
+    public void setStatusDescription(String statusDescription) {
+        this.statusDescription = statusDescription;
+    }
+
+    public String getHolderName() {
+        return holderName;
+    }
+
+    public void setHolderName(String holderName) {
+        this.holderName = holderName;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getPaymentMethodId() {
+        return paymentMethodId;
+    }
+
+    public void setPaymentMethodId(String paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
+    }
+
+    public String getRejectionDescription() {
+        return rejectionDescription;
+    }
+
+    public void setRejectionDescription(String rejectionDescription) {
+        this.rejectionDescription = rejectionDescription;
+    }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
+    // --- TO_STRING ---
 
     @Override
     public String toString() {
-        return "TransactionHistoryDto{" +
+        return "TransactionDto{" +
                 "transactionId='" + transactionId + '\'' +
-                ", statusId=" + statusId +
+                ", statusId='" + statusId + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 ", statusDescription='" + statusDescription + '\'' +
                 ", holderName='" + holderName + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
-                ", paymentMethodId=" + paymentMethodId +
+                ", paymentMethodId='" + paymentMethodId + '\'' +
                 ", rejectionDescription='" + rejectionDescription + '\'' +
                 ", tid='" + tid + '\'' +
                 '}';
